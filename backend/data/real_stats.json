@@ -1,0 +1,121 @@
+{
+  "last_updated": "2026-08-20T18:31:02.167139",
+  "india_fraud_stats": {
+    "total_fraud_2025_crore": 22495,
+    "monthly_upi_fraud_cases": 95000,
+    "fake_loan_apps_blocked": 3718,
+    "money_saved_crore": 11158,
+    "complaints_filed_lakh": 32.8,
+    "i4c_suspect_identifiers_lakh": 30.48,
+    "blocked_transactions_crore": 8031,
+    "kerala_complaints_3yr": 15000,
+    "suicides_loan_scams": 7
+  },
+  "top_scam_types_india_2026": [
+    {
+      "type": "Digital Arrest Scam",
+      "percentage": 32,
+      "avg_loss": "Rs.2.3L",
+      "growth": "+45% YoY"
+    },
+    {
+      "type": "Loan App Fraud",
+      "percentage": 24,
+      "avg_loss": "Rs.87K",
+      "growth": "+30% YoY"
+    },
+    {
+      "type": "UPI Phishing",
+      "percentage": 18,
+      "avg_loss": "Rs.1.1L",
+      "growth": "+60% YoY"
+    },
+    {
+      "type": "KYC Fraud",
+      "percentage": 12,
+      "avg_loss": "Rs.56K",
+      "growth": "+25% YoY"
+    },
+    {
+      "type": "Tech Support Scam",
+      "percentage": 8,
+      "avg_loss": "Rs.34K",
+      "growth": "-10% YoY"
+    },
+    {
+      "type": "Investment Fraud",
+      "percentage": 6,
+      "avg_loss": "Rs.4.5L",
+      "growth": "+80% YoY"
+    }
+  ],
+  "monthly_trend_2026": [
+    {
+      "month": "Jan",
+      "cases": 82000,
+      "loss_crore": 1890
+    },
+    {
+      "month": "Feb",
+      "cases": 78000,
+      "loss_crore": 1720
+    },
+    {
+      "month": "Mar",
+      "cases": 91000,
+      "loss_crore": 2100
+    },
+    {
+      "month": "Apr",
+      "cases": 88000,
+      "loss_crore": 1950
+    },
+    {
+      "month": "May",
+      "cases": 95000,
+      "loss_crore": 2340
+    },
+    {
+      "month": "Jun",
+      "cases": 102000,
+      "loss_crore": 2560
+    },
+    {
+      "month": "Jul",
+      "cases": 108000,
+      "loss_crore": 2780
+    },
+    {
+      "month": "Aug",
+      "cases": 95000,
+      "loss_crore": 2150
+    }
+  ],
+  "vulnerable_demographics": [
+    {
+      "group": "Senior Citizens (60+)",
+      "percentage": 28,
+      "avg_loss": "Rs.3.2L"
+    },
+    {
+      "group": "First-time Digital Users",
+      "percentage": 22,
+      "avg_loss": "Rs.1.8L"
+    },
+    {
+      "group": "Rural Population",
+      "percentage": 25,
+      "avg_loss": "Rs.95K"
+    },
+    {
+      "group": "Small Business Owners",
+      "percentage": 15,
+      "avg_loss": "Rs.5.6L"
+    },
+    {
+      "group": "Students",
+      "percentage": 10,
+      "avg_loss": "Rs.42K"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "legitimate": [
+    {
+      "name": "KreditBee",
+      "nbfc": "KreditVee Finance",
+      "rbi_ref": "RBI-DLA-0891",
+      "category": "BNPL"
+    },
+    {
+      "name": "Slice",
+      "nbfc": "Slice Pvt Ltd",
+      "rbi_ref": "RBI-DLA-1567",
+      "category": "Credit Card"
+    },
+    {
+      "name": "Simpl",
+      "nbfc": "Simpl Pay Technologies",
+      "rbi_ref": "RBI-DLA-1334",
+      "category": "BNPL"
+    },
+    {
+      "name": "CRED",
+      "nbfc": "Dreamplug Technologies",
+      "rbi_ref": "RBI-DLA-0223",
+      "category": "Credit"
+    },
+    {
+      "name": "LazyPay",
+      "nbfc": "PayU Payments",
+      "rbi_ref": "RBI-DLA-0776",
+      "category": "BNPL"
+    },
+    {
+      "name": "MobiKwik",
+      "nbfc": "One MobiKwik Systems",
+      "rbi_ref": "RBI-DLA-0889",
+      "category": "Wallet"
+    },
+    {
+      "name": "Freecharge",
+      "nbfc": "Freecharge Payments",
+      "rbi_ref": "RBI-DLA-0667",
+      "category": "Wallet"
+    },
+    {
+      "name": "Bajaj Finserv",
+      "nbfc": "Bajaj Finance Ltd",
+      "rbi_ref": "RBI-DLA-0112",
+      "category": "NBFC"
+    }
+  ],
+  "blacklisted": [
+    {
+      "name": "LoanOrbit",
+      "blocked_by": "I4C",
+      "date": "2026-08-07",
+      "reason": "Predatory lending, data harvesting"
+    },
+    {
+      "name": "CashGuru",
+      "blocked_by": "I4C",
+      "date": "2026-07-15",
+      "reason": "Fake app, unauthorized data access"
+    },
+    {
+      "name": "RupeeFly",
+      "blocked_by": "I4C",
+      "date": "2026-06-22",
+      "reason": "Blackmail with contacts, harassment"
+    },
+    {
+      "name": "QuickCash",
+      "blocked_by": "RBI Alert",
+      "date": "2026-05-10",
+      "reason": "Not registered, hidden fees"
+    },
+    {
+      "name": "InstaLoan",
+      "blocked_by": "I4C",
+      "date": "2026-04-18",
+      "reason": "Data theft, contacts harvesting"
+    },
+    {
+      "name": "FastMoney",
+      "blocked_by": "CERT-In",
+      "date": "2026-03-25",
+      "reason": "Phishing, fake KYC"
+    },
+    {
+      "name": "EasyLoan",
+      "blocked_by": "I4C",
+      "date": "2026-02-14",
+      "reason": "Rogue lending, harassment calls"
+    },
+    {
+      "name": "ZeroDocash",
+      "blocked_by": "RBI Alert",
+      "date": "2026-01-30",
+      "reason": "Unauthorized NBFC operations"
+    },
+    {
+      "name": "LoanZone",
+      "blocked_by": "I4C",
+      "date": "2025-12-20",
+      "reason": "Data harvesting from contacts"
+    },
+    {
+      "name": "PaisaAdvance",
+      "blocked_by": "CERT-In",
+      "date": "2025-11-15",
+      "reason": "Predatory lending, contact harassment"
+    }
+  ]
+}

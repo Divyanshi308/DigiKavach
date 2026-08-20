@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SurakshaShield</string>
+    <string name="home">Home</string>
+    <string name="scanner">Scanner</string>
+    <string name="alerts">Alerts</string>
+    <string name="settings">Settings</string>
+    
+    <!-- Home Screen -->
+    <string name="protected_status">PROTECTED</string>
+    <string name="unprotected_status">UNPROTECTED</string>
+    <string name="protection_active">ScamShield is active and protecting you</string>
+    <string name="protection_inactive">Enable protection to stay safe</string>
+    
+    <!-- Scanner -->
+    <string name="check_number">Check Number</string>
+    <string name="verify_app">Verify App</string>
+    <string name="check_website">Check Website</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="enter_phone_number">Enter phone number (e.g., +919876543210)</string>
+    <string name="enter_app_name">Enter app name (e.g., KreditBee)</string>
+    <string name="enter_website_url">Enter website URL</string>
+    <string name="paste_upi_id">Scan or paste UPI ID</string>
+    <string name="check_now">CHECK NOW</string>
+    
+    <!-- Alerts -->
+    <string name="scam_call_blocked">Scam Call Blocked</string>
+    <string name="suspicious_app_detected">Suspicious App Detected</string>
+    <string name="payment_warning">Payment Warning</string>
+    <string name="website_blocked">Website Blocked</string>
+    <string name="guardian_alert_sent">Guardian Alert Sent</string>
+    
+    <!-- Settings -->
+    <string name="call_blocking">Call Blocking</string>
+    <string name="call_blocking_desc">Block known scam calls automatically</string>
+    <string name="payment_protection">Payment Protection</string>
+    <string name="payment_protection_desc">Alert when opening banking app during unknown call</string>
+    <string name="website_blocking">Website Blocking</string>
+    <string name="website_blocking_desc">Block access to known phishing websites</string>
+    <string name="guardian_alerts">Guardian Alerts</string>
+    <string name="guardian_alerts_desc">Send SMS alerts to emergency contacts</string>
+    
+    <!-- Scam Alert -->
+    <string name="scam_call_alert">SCAM CALL BLOCKED!</string>
+    <string name="suspicious_call_alert">SUSPICIOUS CALL!</string>
+    <string name="block_this_number">BLOCK THIS NUMBER</string>
+    <string name="report_as_scam">REPORT AS SCAM</string>
+    <string name="dismiss">Dismiss</string>
+    
+    <!-- Emergency -->
+    <string name="emergency_helpline">Emergency Helpline</string>
+    <string name="cyber_crime_helpline">1930 (Cyber Crime)</string>
+</resources>

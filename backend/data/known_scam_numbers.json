@@ -1,0 +1,58 @@
+[
+  {
+    "number": "+917893456789",
+    "type": "Digital Arrest",
+    "reports": 342,
+    "state": "Andhra Pradesh",
+    "first_reported": "2025-11-15"
+  },
+  {
+    "number": "+918765432100",
+    "type": "Loan App Fraud",
+    "reports": 189,
+    "state": "Maharashtra",
+    "first_reported": "2026-01-22"
+  },
+  {
+    "number": "+919012345678",
+    "type": "OTP Phishing",
+    "reports": 567,
+    "state": "Delhi",
+    "first_reported": "2025-08-10"
+  },
+  {
+    "number": "+919988776655",
+    "type": "KYC Fraud",
+    "reports": 123,
+    "state": "Karnataka",
+    "first_reported": "2026-03-05"
+  },
+  {
+    "number": "+918001234567",
+    "type": "Tech Support",
+    "reports": 89,
+    "state": "Tamil Nadu",
+    "first_reported": "2026-02-18"
+  },
+  {
+    "number": "+917000123456",
+    "type": "Investment Fraud",
+    "reports": 456,
+    "state": "Gujarat",
+    "first_reported": "2025-12-01"
+  },
+  {
+    "number": "+918555123456",
+    "type": "Digital Arrest",
+    "reports": 278,
+    "state": "Uttar Pradesh",
+    "first_reported": "2026-04-12"
+  },
+  {
+    "number": "+919222123456",
+    "type": "UPI Phishing",
+    "reports": 634,
+    "state": "Rajasthan",
+    "first_reported": "2026-01-30"
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "domain": "paytm-update.xyz",
+    "target": "Paytm",
+    "reported": 1247,
+    "first_seen": "2025-06-15",
+    "country": "India"
+  },
+  {
+    "domain": "gpay-verify.com",
+    "target": "Google Pay",
+    "reported": 834,
+    "first_seen": "2025-08-22",
+    "country": "India"
+  },
+  {
+    "domain": "sbi-kyc-update.in",
+    "target": "SBI",
+    "reported": 2156,
+    "first_seen": "2025-03-10",
+    "country": "India"
+  },
+  {
+    "domain": "hdfc-secure-update.net",
+    "target": "HDFC Bank",
+    "reported": 1089,
+    "first_seen": "2025-07-05",
+    "country": "India"
+  },
+  {
+    "domain": "icici-kyc-verify.com",
+    "target": "ICICI Bank",
+    "reported": 756,
+    "first_seen": "2025-09-18",
+    "country": "India"
+  },
+  {
+    "domain": "aadhaar-update.org",
+    "target": "UIDAI",
+    "reported": 3421,
+    "first_seen": "2025-01-20",
+    "country": "India"
+  },
+  {
+    "domain": "pan-card-verify.in",
+    "target": "Income Tax",
+    "reported": 1567,
+    "first_seen": "2025-11-30",
+    "country": "India"
+  },
+  {
+    "domain": "upi-reward.xyz",
+    "target": "NPCI/UPI",
+    "reported": 2890,
+    "first_seen": "2026-02-14",
+    "country": "India"
+  },
+  {
+    "domain": "loan-approved-fast.top",
+    "target": "Loan Scam",
+    "reported": 4567,
+    "first_seen": "2025-04-08",
+    "country": "India"
+  },
+  {
+    "domain": "atm-card-blocked.com",
+    "target": "Banking",
+    "reported": 1234,
+    "first_seen": "2026-01-05",
+    "country": "India"
+  }
+]
