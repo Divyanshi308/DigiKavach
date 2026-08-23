@@ -1,4 +1,4 @@
-package com.surakshashield.service
+package com.digikavach.service
 
 import android.app.*
 import android.content.Context
@@ -7,15 +7,15 @@ import android.os.Build
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.surakshashield.R
-import com.surakshashield.SurakshaShieldApp
-import com.surakshashield.data.repository.ScamRepository
-import com.surakshashield.ui.ScamAlertActivity
+import com.digikavach.R
+import com.digikavach.DigiKavachApp
+import com.digikavach.data.repository.ScamRepository
+import com.digikavach.ui.ScamAlertActivity
 import kotlinx.coroutines.*
 
 class PaymentProtectionService : Service() {
 
-    private val repository = SurakshaShieldApp.instance.repository
+    private val repository = DigiKavachApp.instance.repository
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     
     private var isMonitoring = false
@@ -115,7 +115,7 @@ class PaymentProtectionService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val notification = NotificationCompat.Builder(this, SurakshaShieldApp.CHANNEL_SCAM_ALERT)
+        val notification = NotificationCompat.Builder(this, DigiKavachApp.CHANNEL_SCAM_ALERT)
             .setSmallIcon(R.drawable.ic_shield)
             .setContentTitle("⚠️ Payment Warning!")
             .setContentText("Suspicious call detected while banking app is open")
@@ -129,9 +129,9 @@ class PaymentProtectionService : Service() {
     }
 
     private fun startForegroundService() {
-        val notification = NotificationCompat.Builder(this, SurakshaShieldApp.CHANNEL_PROTECTION)
+        val notification = NotificationCompat.Builder(this, DigiKavachApp.CHANNEL_PROTECTION)
             .setSmallIcon(R.drawable.ic_shield)
-            .setContentTitle("SurakshaShield Active")
+            .setContentTitle("DigiKavach Active")
             .setContentText("Protecting you from fraud")
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setOngoing(true)
@@ -150,11 +150,11 @@ class PaymentProtectionService : Service() {
         private const val NOTIFICATION_ID = 1001
         private const val NOTIFICATION_PAYMENT_WARNING = 1002
 
-        const val ACTION_START_MONITORING = "com.surakshashield.START_MONITORING"
-        const val ACTION_STOP_MONITORING = "com.surakshashield.STOP_MONITORING"
-        const val ACTION_CALL_STARTED = "com.surakshashield.CALL_STARTED"
-        const val ACTION_CALL_ENDED = "com.surakshashield.CALL_ENDED"
-        const val ACTION_APP_OPENED = "com.surakshashield.APP_OPENED"
+        const val ACTION_START_MONITORING = "com.digikavach.START_MONITORING"
+        const val ACTION_STOP_MONITORING = "com.digikavach.STOP_MONITORING"
+        const val ACTION_CALL_STARTED = "com.digikavach.CALL_STARTED"
+        const val ACTION_CALL_ENDED = "com.digikavach.CALL_ENDED"
+        const val ACTION_APP_OPENED = "com.digikavach.APP_OPENED"
         
         const val EXTRA_PHONE_NUMBER = "phone_number"
         const val EXTRA_PACKAGE_NAME = "package_name"

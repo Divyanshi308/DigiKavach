@@ -1,4 +1,4 @@
-package com.surakshashield.utils
+package com.digikavach.utils
 
 import java.text.SimpleDateFormat
 import java.util.Date

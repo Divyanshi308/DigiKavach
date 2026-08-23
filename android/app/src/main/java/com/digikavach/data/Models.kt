@@ -1,4 +1,4 @@
-package com.surakshashield.data
+package com.digikavach.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

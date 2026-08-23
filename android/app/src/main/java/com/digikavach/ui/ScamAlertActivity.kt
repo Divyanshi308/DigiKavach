@@ -1,4 +1,4 @@
-package com.surakshashield.ui
+package com.digikavach.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.surakshashield.ui.theme.SurakshaShieldTheme
+import com.digikavach.ui.theme.DigiKavachTheme
 import kotlinx.coroutines.delay
 
 class ScamAlertActivity : ComponentActivity() {
@@ -32,7 +32,7 @@ class ScamAlertActivity : ComponentActivity() {
         val message = intent.getStringExtra("MESSAGE") ?: "This number is flagged as suspicious!"
 
         setContent {
-            SurakshaShieldTheme {
+            DigiKavachTheme {
                 ScamAlertScreen(
                     phoneNumber = phoneNumber,
                     riskScore = riskScore,

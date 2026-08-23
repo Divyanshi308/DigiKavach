@@ -1,7 +1,7 @@
-package com.surakshashield.data.repository
+package com.digikavach.data.repository
 
-import com.surakshashield.data.*
-import com.surakshashield.data.database.AppDatabase
+import com.digikavach.data.*
+import com.digikavach.data.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

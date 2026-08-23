@@ -1,5 +1,5 @@
 """
-SurakshaShield Backend API v3
+DigiKavach Backend API v3
 AI-Powered Complete Fraud Protection for 424 Million UPI Users
 Real Data + ML + Vernacular + Bank API + WhatsApp + Dashboard + UPI Scanner + Scam Map
 """
@@ -10,13 +10,13 @@ from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("SurakshaShield API v3 Starting...")
+    print("DigiKavach API v3 Starting...")
     print("Modules: AI/ML, Real Data, Vernacular, Bank API, WhatsApp Bot, Dashboard, UPI Scanner, Scam Map")
     yield
-    print("SurakshaShield API Shutting Down...")
+    print("DigiKavach API Shutting Down...")
 
 app = FastAPI(
-    title="SurakshaShield API v3",
+    title="DigiKavach API v3",
     description="AI-Powered Complete Fraud Protection for India | 10 Languages | Real-time Dashboard | Bank API",
     version="3.0.0",
     lifespan=lifespan,
@@ -35,7 +35,7 @@ app.add_middleware(
 async def health_check():
     return {
         "status": "healthy",
-        "app": "SurakshaShield",
+        "app": "DigiKavach",
         "version": "3.0.0",
         "modules": {
             "ai_ml_engine": "active",
@@ -92,7 +92,7 @@ async def offline_check(data: dict):
 @app.get("/", tags=["Root"])
 async def root():
     return {
-        "app": "SurakshaShield",
+        "app": "DigiKavach",
         "version": "3.0.0",
         "tagline": "Complete Fraud Protection for 424 Million UPI Users",
         "docs": "/docs",

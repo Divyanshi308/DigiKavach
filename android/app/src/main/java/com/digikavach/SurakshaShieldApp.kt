@@ -1,13 +1,13 @@
-package com.surakshashield
+package com.digikavach
 
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
-import com.surakshashield.data.database.AppDatabase
-import com.surakshashield.data.repository.ScamRepository
+import com.digikavach.data.database.AppDatabase
+import com.digikavach.data.repository.ScamRepository
 
-class SurakshaShieldApp : Application() {
+class DigiKavachApp : Application() {
 
     val database by lazy { AppDatabase.getDatabase(this) }
     val repository by lazy { ScamRepository(database) }
@@ -57,7 +57,7 @@ class SurakshaShieldApp : Application() {
         const val CHANNEL_GUARDIAN_ALERT = "guardian_alert"
         const val CHANNEL_PROTECTION = "protection"
 
-        lateinit var instance: SurakshaShieldApp
+        lateinit var instance: DigiKavachApp
             private set
     }
 }

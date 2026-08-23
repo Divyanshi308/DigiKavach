@@ -1,4 +1,4 @@
-# Complete VS Code Setup Guide for SurakshaShield
+# Complete VS Code Setup Guide for DigiKavach
 
 ## Step 1: Install Required Extensions
 
@@ -25,7 +25,7 @@ Open VS Code and install these extensions:
 ```
 1. Open VS Code
 2. File → Open Folder
-3. Navigate to: C:\Users\jiyad\OneDrive\Documents\Default Project\SurakshaShield
+3. Navigate to: C:\Users\jiyad\OneDrive\Documents\Default Project\DigiKavach
 4. Click "Select Folder"
 ```
 
@@ -69,7 +69,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ### 3.7 Verify Backend is Running
 ```
 Open browser: http://localhost:8000/health
-You should see: {"status":"healthy","app":"SurakshaShield","version":"1.0.0"}
+You should see: {"status":"healthy","app":"DigiKavach","version":"1.0.0"}
 ```
 
 ---
@@ -79,7 +79,7 @@ You should see: {"status":"healthy","app":"SurakshaShield","version":"1.0.0"}
 ### 4.1 Open Android Folder
 ```
 1. File → Open Folder
-2. Navigate to: SurakshaShield/android
+2. Navigate to: DigiKavach/android
 3. Click "Select Folder"
 ```
 
@@ -231,9 +231,9 @@ netstat -ano | findstr :8000
 ### Issue: "Permission denied on Android"
 **Solution:**
 ```
-1. Phone Settings → Apps → SurakshaShield
+1. Phone Settings → Apps → DigiKavach
 2. Permissions → Enable all
-3. Phone Settings → Apps → Default Apps → Phone App → Select SurakshaShield
+3. Phone Settings → Apps → Default Apps → Phone App → Select DigiKavach
 ```
 
 ---
@@ -241,7 +241,7 @@ netstat -ano | findstr :8000
 ## Project Structure in VS Code
 
 ```
-SurakshaShield/
+DigiKavach/
 ├── README.md                    # Project overview
 ├── docs/
 │   └── SETUP.md                # Original setup guide
@@ -250,9 +250,9 @@ SurakshaShield/
 │   │   ├── build.gradle.kts   # App dependencies
 │   │   └── src/main/
 │   │       ├── AndroidManifest.xml
-│   │       ├── java/com/surakshashield/
+│   │       ├── java/com/digikavach/
 │   │       │   ├── MainActivity.kt
-│   │       │   ├── SurakshaShieldApp.kt
+│   │       │   ├── DigiKavachApp.kt
 │   │       │   ├── data/       # Database & models
 │   │       │   ├── service/    # Call screening
 │   │       │   ├── ui/         # UI screens

@@ -1,4 +1,4 @@
-# 🛡️ SurakshaShield
+# 🛡️ DigiKavach
 
 **Complete Fraud Protection for 424 Million UPI Users**
 
@@ -26,11 +26,11 @@
 ## 🏗️ Architecture
 
 ```
-SurakshaShield/
+DigiKavach/
 ├── android/          # Android app (Kotlin + Jetpack Compose)
 │   ├── app/
 │   │   └── src/main/
-│   │       ├── java/com/surakshashield/
+│   │       ├── java/com/digikavach/
 │   │       │   ├── MainActivity.kt
 │   │       │   ├── service/
 │   │       │   │   └── SurakshaCallScreeningService.kt
@@ -66,8 +66,8 @@ SurakshaShield/
 ### Backend Setup
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/SurakshaShield.git
-cd SurakshaShield/backend
+git clone https://github.com/yourusername/DigiKavach.git
+cd DigiKavach/backend
 
 # Create virtual environment
 python -m venv venv
@@ -230,7 +230,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact
 
 - **Email:** your.email@example.com
-- **GitHub:** github.com/yourusername/SurakshaShield
+- **GitHub:** github.com/yourusername/DigiKavach
 - **LinkedIn:** linkedin.com/in/yourprofile
 
 ---

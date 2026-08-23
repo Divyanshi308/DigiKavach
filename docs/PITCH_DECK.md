@@ -1,11 +1,11 @@
-# SurakshaShield - Pitch Deck Content
+# DigiKavach - Pitch Deck Content
 ## Build$Bank FinTech Hackathon @ IIT Delhi
 
 ---
 
 ## SLIDE 1: Title Slide
 
-### SurakshaShield
+### DigiKavach
 **Complete Fraud Protection for 424 Million UPI Users**
 
 *From Scam Calls to Scam Apps - One Shield, Total Protection*
@@ -52,7 +52,7 @@ Date: September 20, 2026
 
 ## SLIDE 4: Our Solution
 
-### SurakshaShield: Complete Protection
+### DigiKavach: Complete Protection
 
 **"We don't just warn you. We protect you."**
 

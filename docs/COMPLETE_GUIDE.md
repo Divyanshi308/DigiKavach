@@ -1,4 +1,4 @@
-# Complete Guide: Build & Publish SurakshaShield Android App
+# Complete Guide: Build & Publish DigiKavach Android App
 
 ## What You Need to Install
 
@@ -25,9 +25,9 @@ Install these in VS Code:
 3. Select "Empty Activity"
 4. Click "Next"
 5. Fill in:
-   - Name: SurakshaShield
-   - Package name: com.surakshashield
-   - Save location: C:\Users\jiyad\OneDrive\Documents\Default Project\SurakshaShield\android
+   - Name: DigiKavach
+   - Package name: com.digikavach
+   - Save location: C:\Users\jiyad\OneDrive\Documents\Default Project\DigiKavach\android
    - Language: Kotlin
    - Minimum SDK: API 26 (Android 8.0)
 6. Click "Finish"
@@ -38,7 +38,7 @@ Install these in VS Code:
 ```
 1. Open VS Code
 2. File → Open Folder
-3. Select: SurakshaShield\android
+3. Select: DigiKavach\android
 4. Click "Select Folder"
 ```
 
@@ -81,25 +81,25 @@ In Android Studio:
 ### File 1: build.gradle.kts (Project level)
 Location: android/build.gradle.kts
 ```
-See: SurakshaShield/android/build.gradle.kts
+See: DigiKavach/android/build.gradle.kts
 ```
 
 ### File 2: build.gradle.kts (App level)
 Location: android/app/build.gradle.kts
 ```
-See: SurakshaShield/android/app/build.gradle.kts
+See: DigiKavach/android/app/build.gradle.kts
 ```
 
 ### File 3: AndroidManifest.xml
 Location: android/app/src/main/AndroidManifest.xml
 ```
-See: SurakshaShield/android/app/src/main/AndroidManifest.xml
+See: DigiKavach/android/app/src/main/AndroidManifest.xml
 ```
 
 ### File 4: MainActivity.kt
-Location: android/app/src/main/java/com/surakshashield/MainActivity.kt
+Location: android/app/src/main/java/com/digikavach/MainActivity.kt
 ```
-See: SurakshaShield/android/app/src/main/java/com/surakshashield/MainActivity.kt
+See: DigiKavach/android/app/src/main/java/com/digikavach/MainActivity.kt
 ```
 
 ... (and so on for all files)

@@ -1,4 +1,4 @@
-# STEP-BY-STEP: Build SurakshaShield (Beginner Guide)
+# STEP-BY-STEP: Build DigiKavach (Beginner Guide)
 
 ## What You'll Build
 A phone app that:
@@ -52,9 +52,9 @@ A phone app that:
 
 ### 2.2 Fill Project Details
 ```
-Name: SurakshaShield
-Package name: com.surakshashield
-Save location: C:\Users\jiyad\OneDrive\Documents\Default Project\SurakshaShield\android
+Name: DigiKavach
+Package name: com.digikavach
+Save location: C:\Users\jiyad\OneDrive\Documents\Default Project\DigiKavach\android
 Language: Kotlin
 Minimum SDK: API 26 (Android 8.0)
 Click "Finish"
@@ -75,7 +75,7 @@ Click "Finish"
 ```
 1. Open VS Code
 2. Click File → Open Folder
-3. Navigate to: C:\Users\jiyad\OneDrive\Documents\Default Project\SurakshaShield\android
+3. Navigate to: C:\Users\jiyad\OneDrive\Documents\Default Project\DigiKavach\android
 4. Click "Select Folder"
 ```
 
@@ -112,7 +112,7 @@ Click "Finish"
 
 **File 3: MainActivity.kt**
 ```
-1. Open: android/app/src/main/java/com/surakshashield/MainActivity.kt
+1. Open: android/app/src/main/java/com/digikavach/MainActivity.kt
 2. Select ALL → Delete
 3. Copy File 3 from CODE_FILES.md
 4. Paste → Save
@@ -120,7 +120,7 @@ Click "Finish"
 
 **File 4: SurakshaCallScreeningService.kt**
 ```
-1. Create folder: android/app/src/main/java/com/surakshashield/service/
+1. Create folder: android/app/src/main/java/com/digikavach/service/
 2. Create file: SurakshaCallScreeningService.kt
 3. Copy File 4 from CODE_FILES.md
 4. Paste → Save
@@ -257,7 +257,7 @@ You'll see the API documentation page
 5. Fill in:
    - Key store path: Choose a location
    - Password: Create a password
-   - Key alias: surakshashield
+   - Key alias: digikavach
    - Key password: Create a password
    - Fill in certificate info
 6. Click "OK"
@@ -271,7 +271,7 @@ You'll see the API documentation page
 1. Go to Google Play Console
 2. Click "Create app"
 3. Fill in app details:
-   - App name: SurakshaShield
+   - App name: DigiKavach
    - Default language: English
    - App or game: App
    - Free

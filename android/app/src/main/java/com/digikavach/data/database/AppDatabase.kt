@@ -1,8 +1,8 @@
-package com.surakshashield.data.database
+package com.digikavach.data.database
 
 import android.content.Context
 import androidx.room.*
-import com.surakshashield.data.*
+import com.digikavach.data.*
 
 @Database(
     entities = [

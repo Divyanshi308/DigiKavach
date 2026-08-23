@@ -1,4 +1,4 @@
-package com.surakshashield
+package com.digikavach
 
 import android.Manifest
 import android.content.Intent
@@ -17,8 +17,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
-import com.surakshashield.ui.navigation.SurakshaShieldNavGraph
-import com.surakshashield.ui.theme.SurakshaShieldTheme
+import com.digikavach.ui.navigation.DigiKavachNavGraph
+import com.digikavach.ui.theme.DigiKavachTheme
 
 class MainActivity : ComponentActivity() {
 
@@ -47,12 +47,12 @@ class MainActivity : ComponentActivity() {
         requestPermissions()
         
         setContent {
-            SurakshaShieldTheme {
+            DigiKavachTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SurakshaShieldNavGraph()
+                    DigiKavachNavGraph()
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.surakshashield.ui.theme
+package com.digikavach.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

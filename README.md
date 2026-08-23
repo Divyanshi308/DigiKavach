@@ -1,7 +1,7 @@
-# SurakshaShield - Complete Fraud Protection App
+# DigiKavach - Complete Fraud Protection App
 
 ## Overview
-SurakshaShield is a comprehensive fraud protection application that protects users from:
+DigiKavach is a comprehensive fraud protection application that protects users from:
 - **Scam Calls** - Auto-blocks known scam numbers
 - **Fake Loan Apps** - Verifies lenders against RBI directory
 - **Payment Fraud** - Detects suspicious transactions
@@ -9,7 +9,7 @@ SurakshaShield is a comprehensive fraud protection application that protects use
 
 ## Architecture
 ```
-SurakshaShield/
+DigiKavach/
 ├── android/          # Android app (Kotlin + Jetpack Compose)
 ├── backend/          # Python FastAPI backend
 └── docs/             # Documentation

@@ -1,4 +1,4 @@
-# Copy-Paste Code Files for SurakshaShield
+# Copy-Paste Code Files for DigiKavach
 
 ## How to Use This Guide
 
@@ -18,11 +18,11 @@ plugins {
 }
 
 android {
-    namespace = "com.surakshashield"
+    namespace = "com.digikavach"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.surakshashield"
+        applicationId = "com.digikavach"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
@@ -80,15 +80,15 @@ dependencies {
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="SurakshaShield"
+        android:label="DigiKavach"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SurakshaShield">
+        android:theme="@style/Theme.DigiKavach">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.SurakshaShield">
+            android:theme="@style/Theme.DigiKavach">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -111,10 +111,10 @@ dependencies {
 
 ---
 
-## FILE 3: android/app/src/main/java/com/surakshashield/MainActivity.kt
+## FILE 3: android/app/src/main/java/com/digikavach/MainActivity.kt
 
 ```kotlin
-package com.surakshashield
+package com.digikavach
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -166,14 +166,14 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            SurakshaShieldApp()
+            DigiKavachApp()
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SurakshaShieldApp() {
+fun DigiKavachApp() {
     var selectedTab by remember { mutableIntStateOf(0) }
     var phoneNumber by remember { mutableStateOf("") }
     var appName by remember { mutableStateOf("") }
@@ -191,7 +191,7 @@ fun SurakshaShieldApp() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("SurakshaShield", fontWeight = FontWeight.Bold) },
+                    title = { Text("DigiKavach", fontWeight = FontWeight.Bold) },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = Color(0xFF1976D2),
                         titleContentColor = Color.White
@@ -315,7 +315,7 @@ fun HomeTab() {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Text("PROTECTED", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-                Text("SurakshaShield is active", color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp)
+                Text("DigiKavach is active", color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp)
             }
         }
 
@@ -599,10 +599,10 @@ fun SettingToggle(title: String, subtitle: String, checked: Boolean, onChecked: 
 
 ---
 
-## FILE 4: android/app/src/main/java/com/surakshashield/service/SurakshaCallScreeningService.kt
+## FILE 4: android/app/src/main/java/com/digikavach/service/SurakshaCallScreeningService.kt
 
 ```kotlin
-package com.surakshashield.service
+package com.digikavach.service
 
 import android.os.Build
 import android.telecom.Call
@@ -658,7 +658,7 @@ class SurakshaCallScreeningService : CallScreeningService() {
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SurakshaShield</string>
+    <string name="app_name">DigiKavach</string>
 </resources>
 ```
 
@@ -669,7 +669,7 @@ class SurakshaCallScreeningService : CallScreeningService() {
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.SurakshaShield" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.DigiKavach" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">#1976D2</item>
     </style>
 </resources>
@@ -685,8 +685,8 @@ class SurakshaCallScreeningService : CallScreeningService() {
 |------|----------|
 | build.gradle.kts | android/app/build.gradle.kts |
 | AndroidManifest.xml | android/app/src/main/AndroidManifest.xml |
-| MainActivity.kt | android/app/src/main/java/com/surakshashield/MainActivity.kt |
-| CallScreeningService.kt | android/app/src/main/java/com/surakshashield/service/SurakshaCallScreeningService.kt |
+| MainActivity.kt | android/app/src/main/java/com/digikavach/MainActivity.kt |
+| CallScreeningService.kt | android/app/src/main/java/com/digikavach/service/SurakshaCallScreeningService.kt |
 | strings.xml | android/app/src/main/res/values/strings.xml |
 | themes.xml | android/app/src/main/res/values/themes.xml |
 

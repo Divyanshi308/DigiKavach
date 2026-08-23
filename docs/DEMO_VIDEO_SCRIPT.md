@@ -1,4 +1,4 @@
-# SurakshaShield - Demo Video Script
+# DigiKavach - Demo Video Script
 ## Duration: 3 minutes
 
 ---
@@ -18,14 +18,14 @@
 
 ## SCENE 2: Solution Introduction (0:30 - 1:00)
 
-**[Screen: SurakshaShield logo animation]**
+**[Screen: DigiKavach logo animation]**
 
 **Voiceover:**
-"Introducing SurakshaShield - Complete fraud protection for every Indian."
+"Introducing DigiKavach - Complete fraud protection for every Indian."
 
 **[Screen: App home screen]**
 
-"We don't just warn you. We protect you. From the moment a scam call reaches your phone, to when you try to make a payment - SurakshaShield is your shield."
+"We don't just warn you. We protect you. From the moment a scam call reaches your phone, to when you try to make a payment - DigiKavach is your shield."
 
 ---
 
@@ -34,7 +34,7 @@
 **[Screen: Phone receiving a call]**
 
 **Voiceover:**
-"Watch this. A known scam number calls. SurakshaShield automatically blocks it."
+"Watch this. A known scam number calls. DigiKavach automatically blocks it."
 
 **[Screen: App shows "SCAM CALL BLOCKED!" overlay]**
 
@@ -51,7 +51,7 @@
 **[Screen: User opens app, taps Scanner tab]**
 
 **Voiceover:**
-"Before you download any loan app, check it with SurakshaShield."
+"Before you download any loan app, check it with DigiKavach."
 
 **[Screen: User enters "LoanOrbit"]**
 
@@ -80,7 +80,7 @@
 
 **[Screen: Full-screen red warning appears]**
 
-"SurakshaShield warns you: STOP! You're on a suspicious call and opening a banking app!"
+"DigiKavach warns you: STOP! You're on a suspicious call and opening a banking app!"
 
 **[Screen: Show guardian SMS being sent]**
 
@@ -107,10 +107,10 @@
 
 ## SCENE 7: Closing (2:45 - 3:00)
 
-**[Screen: SurakshaShield logo with tagline]**
+**[Screen: DigiKavach logo with tagline]**
 
 **Voiceover:**
-"SurakshaShield. Complete fraud protection. For every Indian. For every transaction."
+"DigiKavach. Complete fraud protection. For every Indian. For every transaction."
 
 **[Screen: Download links and contact info]**
 

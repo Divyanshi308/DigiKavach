@@ -1,4 +1,4 @@
-# SurakshaShield - Complete Setup Guide
+# DigiKavach - Complete Setup Guide
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@
 
 ```bash
 # Navigate to project folder
-cd "C:\Users\jiyad\OneDrive\Documents\Default Project\SurakshaShield"
+cd "C:\Users\jiyad\OneDrive\Documents\Default Project\DigiKavach"
 
 # The project structure is already created
 ```
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 ### 2.3 Setup Database
 ```bash
 # Create PostgreSQL database
-createdb surakshashield
+createdb digikavach
 
 # Run migrations
 python -m app.db.init
@@ -76,7 +76,7 @@ API Docs: `http://localhost:8000/docs`
 ```
 1. Open Android Studio
 2. File → Open
-3. Navigate to: SurakshaShield/android
+3. Navigate to: DigiKavach/android
 4. Click OK
 5. Wait for Gradle sync to complete
 ```
@@ -110,7 +110,7 @@ API_BASE_URL=http://10.0.2.2:8000
 ```
 1. Open VS Code
 2. File → Open Folder
-3. Select: SurakshaShield
+3. Select: DigiKavach
 ```
 
 ### 4.2 Install Extensions
@@ -205,7 +205,7 @@ Check: http://localhost:8000/health
 **Permission Denied on Android**
 ```
 Solution: 
-1. Settings → Apps → SurakshaShield
+1. Settings → Apps → DigiKavach
 2. Grant all permissions
 3. Set as default dialer
 ```
@@ -223,14 +223,14 @@ Solution:
 ## Project Structure
 
 ```
-SurakshaShield/
+DigiKavach/
 ├── README.md                    # Project overview
 ├── docs/
 │   └── SETUP.md                # This file
 ├── android/                    # Android app
 │   ├── app/
 │   │   └── src/main/
-│   │       ├── java/com/surakshashield/
+│   │       ├── java/com/digikavach/
 │   │       │   ├── MainActivity.kt
 │   │       │   ├── ui/          # UI components
 │   │       │   ├── service/     # Call screening service

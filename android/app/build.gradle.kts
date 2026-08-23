@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.surakshashield"
+    namespace = "com.digikavach"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.surakshashield"
+        applicationId = "com.digikavach"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

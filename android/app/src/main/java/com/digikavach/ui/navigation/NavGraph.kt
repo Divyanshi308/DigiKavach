@@ -1,4 +1,4 @@
-package com.surakshashield.ui.navigation
+package com.digikavach.ui.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -13,7 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.surakshashield.ui.screens.*
+import com.digikavach.ui.screens.*
 
 // Navigation Routes
 sealed class Screen(val route: String, val title: String, val icon: ImageVector) {
@@ -33,7 +33,7 @@ val bottomNavItems = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SurakshaShieldNavGraph() {
+fun DigiKavachNavGraph() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -43,7 +43,7 @@ fun SurakshaShieldNavGraph() {
             TopAppBar(
                 title = {
                     Text(
-                        text = "🛡️ SurakshaShield",
+                        text = "🛡️ DigiKavach",
                         style = MaterialTheme.typography.headlineSmall
                     )
                 },

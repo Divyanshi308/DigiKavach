@@ -1,17 +1,17 @@
-# SurakshaShield - Complete Build Summary
+# DigiKavach - Complete Build Summary
 
 ## What Was Built
 
 ### Complete Fraud Protection Application
 
-I've built a comprehensive **SurakshaShield** application with all the features you requested:
+I've built a comprehensive **DigiKavach** application with all the features you requested:
 
 ---
 
 ## Features Implemented
 
 ### 1. Scam Call Blocking ✅
-**File:** `android/app/src/main/java/com/surakshashield/service/SurakshaCallScreeningService.kt`
+**File:** `android/app/src/main/java/com/digikavach/service/SurakshaCallScreeningService.kt`
 
 - Uses Android's **CallScreeningService API** (Android 10+)
 - Blocks calls from known scam numbers
@@ -23,14 +23,14 @@ I've built a comprehensive **SurakshaShield** application with all the features 
 - Shows scam alert overlay when blocking
 
 ### 2. Real-time Caller ID ✅
-**File:** `android/app/src/main/java/com/surakshashield/data/repository/ScamRepository.kt`
+**File:** `android/app/src/main/java/com/digikavach/data/repository/ScamRepository.kt`
 
 - Shows risk score before answering
 - Displays scam type (digital arrest, loan fraud, etc.)
 - Color-coded warnings (Green → Yellow → Orange → Red)
 
 ### 3. Payment Protection ✅
-**File:** `android/app/src/main/java/com/surakshashield/service/PaymentProtectionService.kt`
+**File:** `android/app/src/main/java/com/digikavach/service/PaymentProtectionService.kt`
 
 - Detects when banking app is opened during unknown call
 - Shows full-screen warning overlay
@@ -77,28 +77,28 @@ I've built a comprehensive **SurakshaShield** application with all the features 
 ## UI/UX Screens Built
 
 ### 1. Home Screen
-**File:** `android/app/src/main/java/com/surakshashield/ui/screens/HomeScreen.kt`
+**File:** `android/app/src/main/java/com/digikavach/ui/screens/HomeScreen.kt`
 
 - Protection status (ON/OFF toggle)
 - Stats: Blocked calls, Scams detected, Risk level
 - Quick action buttons
 
 ### 2. Scanner Screen
-**File:** `android/app/src/main/java/com/surakshashield/ui/screens/ScannerScreen.kt`
+**File:** `android/app/src/main/java/com/digikavach/ui/screens/ScannerScreen.kt`
 
 - Tabbed interface (Phone, App, Website, QR)
 - Search input with validation
 - Results with risk score and color coding
 
 ### 3. Alerts Screen
-**File:** `android/app/src/main/java/com/surakshashield/ui/screens/AlertsScreen.kt`
+**File:** `android/app/src/main/java/com/digikavach/ui/screens/AlertsScreen.kt`
 
 - Recent alerts list
 - Alert types with icons
 - Statistics summary
 
 ### 4. Settings Screen
-**File:** `android/app/src/main/java/com/surakshashield/ui/screens/SettingsScreen.kt`
+**File:** `android/app/src/main/java/com/digikavach/ui/screens/SettingsScreen.kt`
 
 - Toggle protection features
 - Setup guardian contacts
@@ -106,7 +106,7 @@ I've built a comprehensive **SurakshaShield** application with all the features 
 - Emergency helpline (1930)
 
 ### 5. Scam Alert Screen
-**File:** `android/app/src/main/java/com/surakshashield/ui/ScamAlertActivity.kt`
+**File:** `android/app/src/main/java/com/digikavach/ui/ScamAlertActivity.kt`
 
 - Full-screen red warning
 - Risk score display
@@ -139,7 +139,7 @@ I've built a comprehensive **SurakshaShield** application with all the features 
 ## Project Structure
 
 ```
-SurakshaShield/
+DigiKavach/
 ├── README.md
 ├── docs/
 │   ├── SETUP.md
@@ -149,9 +149,9 @@ SurakshaShield/
 │   │   ├── build.gradle.kts
 │   │   └── src/main/
 │   │       ├── AndroidManifest.xml
-│   │       ├── java/com/surakshashield/
+│   │       ├── java/com/digikavach/
 │   │       │   ├── MainActivity.kt
-│   │       │   ├── SurakshaShieldApp.kt
+│   │       │   ├── DigiKavachApp.kt
 │   │       │   ├── data/
 │   │       │   │   ├── Models.kt
 │   │       │   │   ├── database/AppDatabase.kt

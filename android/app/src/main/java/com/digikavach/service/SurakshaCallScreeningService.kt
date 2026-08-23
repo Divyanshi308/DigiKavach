@@ -1,4 +1,4 @@
-package com.surakshashield.service
+package com.digikavach.service
 
 import android.content.Intent
 import android.os.Build
@@ -6,15 +6,15 @@ import android.telecom.Call
 import android.telecom.CallScreeningService
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.surakshashield.SurakshaShieldApp
-import com.surakshashield.data.repository.ScamRepository
-import com.surakshashield.ui.ScamAlertActivity
+import com.digikavach.DigiKavachApp
+import com.digikavach.data.repository.ScamRepository
+import com.digikavach.ui.ScamAlertActivity
 import kotlinx.coroutines.*
 
 @RequiresApi(Build.VERSION_CODES.N)
 class SurakshaCallScreeningService : CallScreeningService() {
 
-    private val repository = SurakshaShieldApp.instance.repository
+    private val repository = DigiKavachApp.instance.repository
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
     override fun onScreenCall(callDetails: Call.Details) {

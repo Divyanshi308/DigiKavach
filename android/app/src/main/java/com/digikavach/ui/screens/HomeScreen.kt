@@ -1,4 +1,4 @@
-package com.surakshashield.ui.screens
+package com.digikavach.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

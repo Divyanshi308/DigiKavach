@@ -1,4 +1,4 @@
-package com.surakshashield.ui.screens
+package com.digikavach.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -178,7 +178,7 @@ fun SettingsScreen() {
             ) {
                 SettingsNavItem(
                     icon = Icons.Default.Info,
-                    title = "About SurakshaShield",
+                    title = "About DigiKavach",
                     subtitle = "Version 1.0.0",
                     onClick = { }
                 )
