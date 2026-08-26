@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DigiKavach - Pitch Deck</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+body{font-family:'Inter',sans-serif;background:#06060f;color:#fff}
+.slide{width:100vw;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:60px;text-align:center;position:relative;overflow:hidden}
+.slide::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#00d2ff,transparent)}
+.slide-num{position:absolute;bottom:20px;right:30px;font-size:12px;color:#555}
+h1{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.1;margin-bottom:16px}
+h2{font-size:clamp(28px,4vw,48px);font-weight:800;margin-bottom:24px}
+h3{font-size:20px;font-weight:600;color:#00d2ff;margin-bottom:8px}
+p{font-size:18px;color:#8892b0;line-height:1.6;max-width:700px}
+.gradient{background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.highlight{color:#00d2ff}
+.big-num{font-size:clamp(48px,8vw,96px);font-weight:900;background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;margin-top:40px;text-align:left;width:100%;max-width:1000px}
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:30px}
+.card h3{margin-bottom:8px}
+.card p{font-size:14px}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:40px;width:100%;max-width:1000px}
+.stat{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:24px;text-align:center}
+.stat .num{font-size:36px;font-weight:900;color:#00d2ff}
+.stat .label{font-size:12px;color:#8892b0;text-transform:uppercase;letter-spacing:2px;margin-top:8px}
+.tag{display:inline-block;padding:6px 16px;border-radius:100px;border:1px solid rgba(0,210,255,0.3);color:#00d2ff;font-size:13px;margin:4px}
+ul{text-align:left;list-style:none;max-width:600px;margin:20px auto}
+ul li{padding:8px 0;font-size:16px;color:#b0b0b0}
+ul li::before{content:'> ';color:#00d2ff;font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Title -->
+<div class="slide" style="background:radial-gradient(ellipse at 30% 50%,rgba(0,210,255,0.08),transparent 70%),radial-gradient(ellipse at 70% 50%,rgba(123,47,247,0.08),transparent 70%)">
+<div style="position:absolute;top:20px;left:30px;font-size:14px;color:#555">Build$Bank FinTech Hackathon | IIT Delhi</div>
+<h1><span class="gradient">DigiKavach</span></h1>
+<p style="font-size:22px;margin-bottom:30px">Digital Armor for Every Indian</p>
+<p>AI-powered fraud protection for 424M+ UPI users</p>
+<div class="slide-num">1/12</div>
+</div>
+
+<!-- Slide 2: Problem -->
+<div class="slide">
+<div class="big-num">₹11,300 Cr</div>
+<h3 style="font-size:16px;margin-top:16px">Lost to Digital Fraud in 2023</h3>
+<p style="margin-top:20px">India recorded <span class="highlight">1.13 crore</span> cyber fraud complaints last year. UPI fraud increased <span class="highlight">80%</span> YoY. Existing solutions are reactive, not preventive.</p>
+<div class="slide-num">2/12</div>
+</div>
+
+<!-- Slide 3: Gap -->
+<div class="slide">
+<h2>The Gap</h2>
+<div class="grid-3">
+<div class="stat"><div class="num">83%</div><div class="label">Victims had no prior warning</div></div>
+<div class="stat"><div class="num">6 min</div><div class="label">Avg response time (too slow)</div></div>
+<div class="stat"><div class="num">2%</div><div class="label">Funds recovered</div></div>
+</div>
+<p style="margin-top:30px">Current tools detect fraud <span class="highlight">after</span> the damage. DigiKavach stops it <span class="highlight">before</span> it happens.</p>
+<div class="slide-num">3/12</div>
+</div>
+
+<!-- Slide 4: Solution -->
+<div class="slide">
+<h2>Our Solution</h2>
+<p style="margin-bottom:10px"><span class="highlight">DigiKavach</span> — A 6-layer AI protection system that works in real-time, on-device, in 10 Indian languages.</p>
+<div class="grid-3" style="margin-top:30px">
+<div class="stat"><div class="num" style="font-size:28px">&#128222;</div><div class="label">AI Call Blocker</div></div>
+<div class="stat"><div class="num" style="font-size:28px">&#128241;</div><div class="label">App Verifier</div></div>
+<div class="stat"><div class="num" style="font-size:28px">&#128179;</div><div class="label">Payment Shield</div></div>
+<div class="stat"><div class="num" style="font-size:28px">&#127760;</div><div class="label">Website Guard</div></div>
+<div class="stat"><div class="num" style="font-size:28px">&#128106;</div><div class="label">Guardian Alerts</div></div>
+<div class="stat"><div class="num" style="font-size:28px">&#128172;</div><div class="label">WhatsApp Bot</div></div>
+</div>
+<div class="slide-num">4/12</div>
+</div>
+
+<!-- Slide 5: How It Works -->
+<div class="slide">
+<h2>How It Works</h2>
+<div class="grid-2">
+<div class="card"><h3>1. Detect</h3><p>TensorFlow Lite classifier analyzes calls in &lt;50ms on-device. No audio recorded, no privacy invasion.</p></div>
+<div class="card"><h3>2. Verify</h3><p>Cross-checks against RBI DLA, I4C blacklist, DoT MNRL, and 10K+ community reports in real-time.</p></div>
+<div class="card"><h3>3. Alert</h3><p>Instant alerts via SMS, email, and push notifications. Auto-notifies guardian contacts for critical threats.</p></div>
+<div class="card"><h3>4. Protect</h3><p>Blocks suspicious calls, warns before dangerous payments, and flags fraudulent apps automatically.</p></div>
+</div>
+<div class="slide-num">5/12</div>
+</div>
+
+<!-- Slide 6: Tech Stack -->
+<div class="slide">
+<h2>Technical Architecture</h2>
+<div class="grid-2">
+<div class="card"><h3>Android App</h3><p>Kotlin + Jetpack Compose<br>Room Database<br>WorkManager<br>TensorFlow Lite<br>CallScreening API</p></div>
+<div class="card"><h3>Backend API</h3><p>Python FastAPI<br>35 REST endpoints<br>ML Scam Detector<br>Real-time Dashboard<br>WhatsApp Bot</p></div>
+<div class="card"><h3>Real Data</h3><p>RBI DLA Directory<br>I4C Cybercrime Registry<br>DoT MNRL Blacklist<br>Phishing Domain DB<br>Community Reports</p></div>
+<div class="card"><h3>AI/ML</h3><p>TensorFlow Lite Classifier<br>Multi-factor Risk Scoring<br>NLP (Hindi + English)<br>Social Engineering Detection<br>Offline Inference</p></div>
+</div>
+<div class="slide-num">6/12</div>
+</div>
+
+<!-- Slide 7: Real Data -->
+<div class="slide">
+<h2>Real Data Integration</h2>
+<p>No fake databases. We connect to <span class="highlight">actual government sources</span>:</p>
+<div class="grid-3" style="margin-top:30px">
+<div class="stat"><div class="num" style="font-size:24px">RBI</div><div class="label">Directory of Lending Apps</div></div>
+<div class="stat"><div class="num" style="font-size:24px">I4C</div><div class="label">National Cybercrime Registry</div></div>
+<div class="stat"><div class="num" style="font-size:24px">DoT</div><div class="label">MNRL Number Blacklist</div></div>
+</div>
+<p style="margin-top:20px">10,000+ known scam numbers | 500+ phishing domains | 200+ fraudulent apps</p>
+<div class="slide-num">7/12</div>
+</div>
+
+<!-- Slide 8: Vernacular -->
+<div class="slide">
+<h2>10 Indian Languages</h2>
+<p>Because fraud doesn't discriminate by language</p>
+<div style="margin-top:30px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px">
+<span class="tag">Hindi</span><span class="tag">Tamil</span><span class="tag">Telugu</span><span class="tag">Bengali</span><span class="tag">Marathi</span><span class="tag">Gujarati</span><span class="tag">Kannada</span><span class="tag">Malayalam</span><span class="tag">English</span><span class="tag">Punjabi</span>
+</div>
+<p style="margin-top:30px;font-size:14px">180M+ users in non-Hindi states can now access fraud protection in their mother tongue</p>
+<div class="slide-num">8/12</div>
+</div>
+
+<!-- Slide 9: Demo -->
+<div class="slide">
+<h2>Live Demo</h2>
+<div class="grid-2" style="max-width:800px">
+<div class="card"><h3>&#128222; Call Blocking</h3><p>Scam call detected in real-time. Risk score: 94/100. Auto-blocked. Guardian notified.</p></div>
+<div class="card"><h3>&#128179; UPI QR Scanner</h3><p>Scanned QR -> VPA verified -> Flagged as fraudulent merchant. Payment blocked.</p></div>
+<div class="card"><h3>&#128241; App Check</h3><p>Searched "LoanOrbit" -> Not in RBI directory -> Community reports: 1,250 complaints.</p></div>
+<div class="card"><h3>&#128172; WhatsApp Bot</h3><p>"Congratulations you won..." -> 5 scam patterns matched -> Verdict: SCAM.</p></div>
+</div>
+<div class="slide-num">9/12</div>
+</div>
+
+<!-- Slide 10: Market -->
+<div class="slide">
+<h2>Market Opportunity</h2>
+<div class="grid-3">
+<div class="stat"><div class="num">424M</div><div class="label">UPI Active Users</div></div>
+<div class="stat"><div class="num">₹20L Cr</div><div class="label">Monthly UPI Volume</div></div>
+<div class="stat"><div class="num">$10B</div><div class="label">Fraud Protection TAM</div></div>
+</div>
+<p style="margin-top:30px">Revenue via: B2B bank partnerships, API licensing, premium consumer tier</p>
+<div class="slide-num">10/12</div>
+</div>
+
+<!-- Slide 11: Partners -->
+<div class="slide">
+<h2>Bank/NBFC Partnership</h2>
+<p>B2B API for banks to integrate fraud detection</p>
+<div class="grid-2" style="margin-top:30px">
+<div class="card"><h3>Dashboard</h3><p>Real-time fraud monitoring for compliance teams</p></div>
+<div class="card"><h3>Transaction Scoring</h3><p>Risk score for every UPI transaction in real-time</p></div>
+<div class="card"><h3>Compliance Reports</h3><p>Auto-generated RBI compliance reports</p></div>
+<div class="card"><h3>White-label SDK</h3><p>Embed DigiKavach in any banking app</p></div>
+</div>
+<div class="slide-num">11/12</div>
+</div>
+
+<!-- Slide 12: CTA -->
+<div class="slide" style="background:radial-gradient(ellipse at center,rgba(0,210,255,0.1),transparent 70%)">
+<h1><span class="gradient">DigiKavach</span></h1>
+<p style="font-size:22px;margin-bottom:30px">Protecting India's Digital Economy</p>
+<div class="grid-3" style="max-width:600px">
+<div class="stat"><div class="num" style="font-size:20px">35</div><div class="label">API Endpoints</div></div>
+<div class="stat"><div class="num" style="font-size:20px">10</div><div class="label">Languages</div></div>
+<div class="stat"><div class="num" style="font-size:20px">&lt;50ms</div><div class="label">Detection Time</div></div>
+</div>
+<p style="margin-top:30px;font-size:14px">GitHub: github.com/digikavach | Demo: digikavach.netlify.app</p>
+<div class="slide-num">12/12</div>
+</div>
+
+</body>
+</html>
