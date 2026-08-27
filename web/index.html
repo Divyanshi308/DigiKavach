@@ -272,6 +272,24 @@ canvas#bg-canvas{position:fixed;top:0;left:0;z-index:0}
 <div class="alert-item"><div class="alert-icon orange">&#128172;</div><div class="alert-info"><h4>WhatsApp Scam Reported</h4><p>"Lottery winner" message verified as scam</p><div class="time">5 hours ago</div></div><span class="alert-badge warning">WARNING</span></div>
 </section>
 
+<!-- EXPLAINABLE AI -->
+<section class="demo-section reveal" id="explain">
+<div class="section-header"><h2>Explainable AI</h2><p>We don't just say "scam" - we show you exactly why</p></div>
+<div class="scanner-box">
+<div class="input-group">
+<input type="text" id="explainInput" placeholder="Enter phone/app/website to analyze...">
+<button class="scan-btn" onclick="runExplain()">&#129504; Explain Decision</button>
+</div>
+<div class="result" id="explainResult"></div>
+</div>
+</section>
+
+<!-- FRAUD PREDICTION -->
+<section class="dashboard reveal" id="prediction">
+<div class="section-header"><h2>Fraud Prediction Engine</h2><p>AI predicts fraud trends 7 days ahead</p></div>
+<div id="predictionContent" style="text-align:center;color:#8892b0;padding:40px">Loading predictions...</div>
+</section>
+
 <!-- DASHBOARD -->
 <section class="dashboard reveal" id="dashboard">
 <div class="section-header"><h2>Intelligence Dashboard</h2><p>Live fraud data across India</p></div>
@@ -292,7 +310,26 @@ canvas#bg-canvas{position:fixed;top:0;left:0;z-index:0}
 </div>
 </section>
 
-<footer class="footer">DigiKavach v3.0 &middot; Build$Bank FinTech Hackathon, IIT Delhi<br>Built with &#10084; for 424M+ UPI users</footer>
+<footer class="footer">DigiKavach v4.0 &middot; Build$Bank FinTech Hackathon, IIT Delhi<br>Built with &#10084; for 424M+ UPI users</footer>
+
+<!-- ONBOARDING MODAL -->
+<div id="onboarding" style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)">
+<div style="background:#0f0f23;border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px;max-width:440px;width:90%;text-align:center">
+<div id="obStep">
+<div style="font-size:48px;margin-bottom:16px" id="obIcon">&#128737;</div>
+<h3 id="obTitle" style="font-size:22px;margin-bottom:8px">Welcome to DigiKavach</h3>
+<p id="obDesc" style="color:#8892b0;font-size:14px;line-height:1.6;margin-bottom:24px">AI-powered fraud protection for 424M+ UPI users. Let us show you around.</p>
+<div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px">
+<span class="dot-seg active" style="width:24px;height:4px;border-radius:2px;background:#00d2ff"></span>
+<span class="dot-seg" style="width:24px;height:4px;border-radius:2px;background:#333"></span>
+<span class="dot-seg" style="width:24px;height:4px;border-radius:2px;background:#333"></span>
+<span class="dot-seg" style="width:24px;height:4px;border-radius:2px;background:#333"></span>
+</div>
+<button class="btn-primary" onclick="nextOb()" style="width:100%">Next</button>
+<p style="margin-top:12px;font-size:12px;color:#555;cursor:pointer" onclick="closeOb()">Skip tour</p>
+</div>
+</div>
+</div></div>
 </div>
 
 <script>
@@ -487,6 +524,72 @@ res.innerHTML=`<div class="result-header"><span class="result-icon">${isScam?'\u
 
 // AUTO GENERATE QR
 setTimeout(generateQR,600);
+
+// ONBOARDING
+const obSteps=[
+{icon:'&#128737;',title:'Welcome to DigiKavach',desc:'AI-powered fraud protection for 424M+ UPI users. Let us show you around.'},
+{icon:'&#128222;',title:'6-Layer Protection',desc:'AI call blocking, loan app verification, payment protection, website checking, guardian alerts, and WhatsApp bot.'},
+{icon:'&#129504;',title:'Explainable AI',desc:'We don\'t just say "scam" - we show you exactly which signals triggered the alert and why.'},
+{icon:'&#128200;',title:'Fraud Prediction',desc:'AI predicts fraud trends 7 days ahead so you can stay protected before scams spike.'}];
+let obIdx=0;
+function nextOb(){obIdx++;if(obIdx>=obSteps.length){closeOb();return}
+const s=obSteps[obIdx];
+document.getElementById('obIcon').innerHTML=s.icon;
+document.getElementById('obTitle').textContent=s.title;
+document.getElementById('obDesc').textContent=s.desc;
+document.querySelectorAll('.dot-seg').forEach((d,i)=>{d.style.background=i<=obIdx?'#00d2ff':'#333'})}
+function closeOb(){document.getElementById('onboarding').style.display='none';localStorage.setItem('dk_ob','1')}
+if(localStorage.getItem('dk_ob'))document.getElementById('onboarding').style.display='none';
+
+// EXPLAINABLE AI
+async function runExplain(){
+const val=document.getElementById('explainInput').value.trim();
+if(!val){alert('Enter something to analyze');return}
+const res=document.getElementById('explainResult');
+res.className='result warning';res.style.display='block';
+res.innerHTML='<div style="text-align:center;padding:20px"><span class="loading"></span> Analyzing with Explainable AI...</div>';
+try{
+const type=val.includes('@')?'app':val.includes('.')?'website':'phone';
+const d=await fetch(API+'/api/v4/explain',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({input:val,type})}).then(r=>r.json());
+const risk=d.risk_score;
+const scam=risk>=60;
+res.className='result '+(scam?'danger':risk>=30?'warning':'safe');
+let signalsHtml=d.explanation.signals.map(s=>`<div class="detail-item"><div class="dl">${s.signal} (${s.weight}%)</div><div class="dv">${s.source}</div></div>`).join('');
+let reasonsHtml=d.explanation.reasons.map(r=>`<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:#b0b0b0">&#8227; ${r}</div>`).join('');
+res.innerHTML=`
+<div class="result-header"><span class="result-icon">${scam?'\u{1F6A8}':risk>=30?'\u26A0\uFE0F':'\u2705'}</span>
+<div><div class="result-title" style="color:${scam?'#f44336':risk>=30?'#FF9800':'#4CAF50'}">${d.recommendation} - Risk ${risk}/100</div>
+<div class="result-sub">${d.explanation.summary}</div></div></div>
+<div style="margin:16px 0;padding:16px;background:rgba(255,255,255,0.03);border-radius:12px">
+<div style="font-size:12px;color:#00d2ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Why this decision?</div>
+${reasonsHtml}
+</div>
+<div style="margin:12px 0;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px">
+<div style="font-size:12px;color:#00d2ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Signal Breakdown</div>
+<div style="display:flex;gap:4px;margin-bottom:8px;height:24px;border-radius:4px;overflow:hidden">
+${d.explanation.signals.map(s=>`<div style="width:${Math.max(s.weight,5)}%;background:linear-gradient(135deg,#00d2ff,#7b2ff7);border-radius:2px"></div>`).join('')}
+</div>
+</div>
+<div class="detail-grid">${signalsHtml}</div>
+<div style="margin-top:12px;font-size:12px;color:#8892b0">Confidence: ${d.explanation.confidence}% | Sources: ${d.explanation.data_sources.join(', ')}</div>`;
+}catch(e){res.className='result warning';res.innerHTML='<div style="padding:20px;color:#8892b0">Offline mode - local analysis active</div>'}}
+
+// FRAUD PREDICTION
+setTimeout(async()=>{
+try{
+const d=await fetch(API+'/api/v4/predict').then(r=>r.json());
+const el=document.getElementById('predictionContent');
+const threats=d.top_threats.map(t=>`<div class="dash-card" style="text-align:left"><div style="display:flex;justify-content:space-between;align-items:center"><span class="icon" style="margin:0;font-size:24px">${t.risk==='critical'?'\u{1F534}':t.risk==='high'?'\u{1F7E0}':'\u{1F7E2}'}</span><span style="font-size:12px;padding:4px 10px;border-radius:20px;background:${t.risk==='critical'?'rgba(244,67,54,0.15)':t.risk==='high'?'rgba(255,152,0,0.15)':'rgba(76,175,80,0.15)'};color:${t.risk==='critical'?'#f44336':t.risk==='high'?'#FF9800':'#4CAF50'};font-weight:600;text-transform:uppercase">${t.risk}</span></div><div style="font-size:15px;font-weight:600;margin:10px 0 4px">${t.type}</div><div style="font-size:12px;color:#8892b0">Trend: ${t.trend} (${t.change_pct>0?'+':''}${t.change_pct}%)</div></div>`).join('');
+el.innerHTML=`
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px">
+<div class="dash-card"><div class="big">${d.summary.avg_daily.toLocaleString()}</div><div class="small">Avg Daily Scams</div></div>
+<div class="dash-card"><div class="big">${d.summary.predicted_next_week.toLocaleString()}</div><div class="small">Predicted Next 7 Days</div></div>
+<div class="dash-card"><div class="big">${d.summary.peak_hours}</div><div class="small">Peak Fraud Hours</div></div>
+<div class="dash-card"><div class="big">${d.summary.most_active_region}</div><div class="small">Most Active Region</div></div>
+</div>
+<h3 style="font-size:16px;margin-bottom:16px;color:#8892b0">Top Threats This Week</h3>
+<div class="dash-grid">${threats}</div>`;
+}catch(e){document.getElementById('predictionContent').innerHTML='<p style="color:#8892b0">Prediction data loading...</p>'}},1500);
 </script>
 </body>
 </html>
