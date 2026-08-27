@@ -1,7 +1,7 @@
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.2
-python-dotenv==1.0.0
-httpx==0.25.2
-python-multipart==0.0.6
-websockets==12.0
+fastapi==0.141.1
+uvicorn[standard]==0.52.3
+pydantic==2.13.4
+python-dotenv==1.0.1
+httpx==0.28.1
+python-multipart==0.0.20
+websockets==17.0.1
