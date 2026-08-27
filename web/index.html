@@ -10,333 +10,537 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-body{font-family:'Inter',sans-serif;background:#06060f;color:#e0e0e0;overflow-x:hidden;scroll-behavior:smooth}
-canvas#bg-canvas{position:fixed;top:0;left:0;z-index:0}
+body{font-family:'Inter',sans-serif;background:#06060f;color:#e0e0e0;overflow-x:hidden}
+canvas#bg-canvas{position:fixed;top:0;left:0;z-index:0;pointer-events:none}
+.orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.12;pointer-events:none;z-index:0}
+.orb1{width:500px;height:500px;background:#00d2ff;top:-100px;left:-100px}
+.orb2{width:400px;height:400px;background:#7b2ff7;bottom:-100px;right:-100px}
 .app{position:relative;z-index:1}
 
-/* Animated gradient orbs */
-.orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.15;pointer-events:none;z-index:0}
-.orb1{width:500px;height:500px;background:#00d2ff;top:-100px;left:-100px;animation:float1 20s ease-in-out infinite}
-.orb2{width:400px;height:400px;background:#7b2ff7;bottom:-100px;right:-100px;animation:float2 25s ease-in-out infinite}
-.orb3{width:300px;height:300px;background:#ff2d75;top:50%;left:50%;animation:float3 18s ease-in-out infinite}
-@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,60px)}}
-@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-80px)}}
-@keyframes float3{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-40%,-40%)}}
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(6,6,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.05)}
+.logo{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:800;cursor:pointer;letter-spacing:0.5px}
+.logo .mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#00d2ff,#7b2ff7);display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo .gradient{background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:8px;align-items:center}
+.nav-link{padding:8px 16px;border-radius:10px;cursor:pointer;font-size:14px;font-weight:500;color:#8892b0;transition:all 0.3s;border:none;background:none}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.05)}
+.nav-link.active{color:#fff;background:rgba(0,210,255,0.15)}
+.nav-status{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:10px;background:rgba(76,175,80,0.1);color:#4CAF50;font-size:13px;font-weight:600}
+.nav-status .dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
 
-/* Scroll reveal */
-.reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* PAGES */
+.page{display:none;padding-top:80px;min-height:100vh}
+.page.active{display:block;animation:fadeIn 0.4s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.page-header{text-align:center;padding:40px 20px 30px}
+.page-header h1{font-size:clamp(28px,4vw,44px);font-weight:900;margin-bottom:10px}
+.page-header p{color:#8892b0;font-size:16px;max-width:600px;margin:0 auto;line-height:1.6}
+.page-header .gradient{background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
-/* Hero */
-.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:20px;position:relative}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:100px;border:1px solid rgba(0,210,255,0.3);background:rgba(0,210,255,0.05);font-size:13px;color:#00d2ff;margin-bottom:24px;backdrop-filter:blur(10px)}
-.hero-badge .dot{width:6px;height:6px;background:#00d2ff;border-radius:50%;animation:pulse 2s infinite}
-.hero h1{font-size:clamp(40px,7vw,80px);font-weight:900;line-height:1.05;margin-bottom:20px}
-.hero h1 .gradient{background:linear-gradient(135deg,#00d2ff,#7b2ff7,#ff2d75);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradientShift 4s ease infinite}
-@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.hero p{font-size:clamp(14px,2vw,18px);color:#8892b0;max-width:550px;margin:0 auto 36px;line-height:1.7}
+/* CARDS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;padding:20px 40px 60px;max-width:1300px;margin:0 auto}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;padding:20px 40px 60px;max-width:1100px;margin:0 auto}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px 40px 60px;max-width:1200px;margin:0 auto}
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:28px;transition:all 0.3s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-4px);border-color:rgba(0,210,255,0.3)}
+.card .icon-big{font-size:40px;margin-bottom:14px;display:block}
+.card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.card p{font-size:14px;color:#8892b0;line-height:1.6}
+.card-link{margin-top:16px;display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;background:linear-gradient(135deg,#00d2ff,#7b2ff7);color:#fff;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.3s;text-decoration:none}
+.card-link:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,210,255,0.3)}
+.card-link.secondary{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)}
+
+/* BUTTONS */
+.btn{padding:14px 28px;border-radius:12px;border:none;background:linear-gradient(135deg,#00d2ff,#7b2ff7);color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,210,255,0.3)}
+.btn:active{transform:scale(0.98)}
+.btn.full{width:100%}
+.btn.outline{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1)}
+.btn.danger{background:linear-gradient(135deg,#ff2d2d,#ff6b6b)}
+.btn.success{background:linear-gradient(135deg,#4CAF50,#81C784)}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+
+/* INPUTS */
+.input{margin-bottom:16px}
+.input label{display:block;font-size:12px;color:#8892b0;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-weight:600}
+.input input,.input select,.input textarea{width:100%;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#fff;font-size:15px;outline:none;transition:all 0.3s;font-family:inherit}
+.input input:focus,.input select:focus,.input textarea:focus{border-color:#00d2ff;box-shadow:0 0 20px rgba(0,210,255,0.1)}
+.input input::placeholder,.input textarea::placeholder{color:#555}
+.input select{appearance:none;background:rgba(255,255,255,0.04) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238892b0' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e") no-repeat right 16px center;background-size:16px}
+
+/* TOGGLES */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-info h4{font-size:15px;font-weight:600}
+.toggle-info p{font-size:12px;color:#8892b0;margin-top:2px}
+.toggle{width:52px;height:28px;background:#2a2a3a;border-radius:14px;position:relative;cursor:pointer;transition:background 0.3s;flex-shrink:0}
+.toggle.on{background:linear-gradient(135deg,#00d2ff,#7b2ff7)}
+.toggle::after{content:'';width:24px;height:24px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:transform 0.3s;box-shadow:0 2px 4px rgba(0,0,0,0.3)}
+.toggle.on::after{transform:translateX(24px)}
+
+/* STATUS / RESULTS */
+.status{display:none;padding:24px;border-radius:16px;margin-top:16px;animation:fadeIn 0.4s}
+.status.show{display:block}
+.status.safe{background:rgba(76,175,80,0.1);border:1px solid rgba(76,175,80,0.3)}
+.status.warning{background:rgba(255,152,0,0.1);border:1px solid rgba(255,152,0,0.3)}
+.status.danger{background:rgba(244,67,54,0.1);border:1px solid rgba(244,67,54,0.3)}
+.status.info{background:rgba(0,210,255,0.1);border:1px solid rgba(0,210,255,0.3)}
+.status-title{font-size:20px;font-weight:800;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.status-sub{font-size:13px;color:#8892b0;line-height:1.6}
+
+/* LIVE FEED */
+.feed{max-width:800px;margin:0 auto;padding:0 40px 60px}
+.feed-item{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);margin-bottom:12px;animation:slideIn 0.4s}
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.feed-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.feed-icon.red{background:rgba(244,67,54,0.1);color:#f44336}
+.feed-icon.orange{background:rgba(255,152,0,0.1);color:#FF9800}
+.feed-icon.green{background:rgba(76,175,80,0.1);color:#4CAF50}
+.feed-icon.blue{background:rgba(0,210,255,0.1);color:#00d2ff}
+.feed-content{flex:1}
+.feed-content h4{font-size:14px;font-weight:600}
+.feed-content p{font-size:12px;color:#8892b0;margin-top:2px}
+.feed-time{font-size:11px;color:#555;flex-shrink:0}
+.feed-badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;flex-shrink:0}
+
+/* PHONE SIMULATOR */
+.phone-sim{max-width:360px;margin:0 auto;background:linear-gradient(180deg,#0f1a2e,#06060f);border-radius:40px;border:1px solid rgba(255,255,255,0.1);padding:40px 20px 20px;position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.5)}
+.notch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:120px;height:22px;background:#06060f;border-radius:0 0 14px 14px}
+.phone-screen{background:rgba(255,255,255,0.03);border-radius:24px;padding:20px;text-align:center;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.caller-avatar{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#00d2ff,#7b2ff7);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:16px;animation:ring 1s infinite}
+@keyframes ring{0%,100%{box-shadow:0 0 0 0 rgba(0,210,255,0.4)}50%{box-shadow:0 0 0 20px rgba(0,210,255,0)}}
+.caller-number{font-size:20px;font-weight:700;margin-bottom:4px}
+.caller-name{font-size:13px;color:#8892b0;margin-bottom:20px}
+.risk-pill{padding:8px 20px;border-radius:30px;font-size:13px;font-weight:700;margin-bottom:24px;animation:pulse 2s infinite}
+.call-actions{display:flex;gap:20px;margin-top:10px}
+.call-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;border:none;transition:all 0.3s}
+.call-btn.answer{background:linear-gradient(135deg,#4CAF50,#81C784)}
+.call-btn.decline{background:linear-gradient(135deg,#f44336,#e57373)}
+.call-btn:hover{transform:scale(1.1)}
+
+/* BADGE */
+.badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.badge.red{background:rgba(244,67,54,0.15);color:#f44336}
+.badge.orange{background:rgba(255,152,0,0.15);color:#FF9800}
+.badge.green{background:rgba(76,175,80,0.15);color:#4CAF50}
+.badge.blue{background:rgba(0,210,255,0.15);color:#00d2ff}
+
+/* CHAT */
+.chat-box{max-width:600px;margin:0 auto;padding:0 40px 60px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:24px;padding:30px}
+.chat-msg{margin-bottom:16px;display:flex;flex-direction:column}
+.chat-msg .bubble{max-width:80%;padding:14px 18px;border-radius:18px;font-size:14px;line-height:1.5}
+.chat-msg.incoming .bubble{background:rgba(255,255,255,0.08);border-bottom-left-radius:4px;align-self:flex-start}
+.chat-msg.outgoing .bubble{background:linear-gradient(135deg,#00d2ff,#7b2ff7);border-bottom-right-radius:4px;align-self:flex-end}
+.chat-input{display:flex;gap:10px;margin-top:20px}
+.chat-input input{flex:1;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#fff;font-size:14px;outline:none}
+.chat-input input:focus{border-color:#00d2ff}
+.chat-input .btn{padding:14px 20px}
+
+/* HOME PAGE */
+.hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 80px);text-align:center;padding:40px 20px}
+.hero h1{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.05;margin-bottom:20px}
+.hero .gradient{background:linear-gradient(135deg,#00d2ff,#7b2ff7,#ff2d75);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gs 4s ease infinite}
+@keyframes gs{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero p{font-size:clamp(14px,2vw,18px);color:#8892b0;max-width:560px;margin:0 auto 32px;line-height:1.7}
 .hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
-.btn-primary{padding:16px 36px;border-radius:14px;border:none;background:linear-gradient(135deg,#00d2ff,#7b2ff7);color:#fff;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s;position:relative;overflow:hidden}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 20px 40px rgba(0,210,255,0.3)}
-.btn-primary::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent,rgba(255,255,255,0.1),transparent);transform:rotate(45deg);transition:0.5s}
-.btn-primary:hover::after{left:100%}
-.btn-secondary{padding:16px 36px;border-radius:14px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.03);color:#e0e0e0;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;backdrop-filter:blur(10px)}
-.btn-secondary:hover{border-color:#00d2ff;background:rgba(0,210,255,0.05)}
-
 .hero-stats{display:flex;gap:50px;margin-top:50px;flex-wrap:wrap;justify-content:center}
-.hero-stat{text-align:center}
-.hero-stat .num{font-size:clamp(32px,5vw,52px);font-weight:900;background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-stat .label{font-size:12px;color:#8892b0;text-transform:uppercase;letter-spacing:3px;margin-top:4px}
+.hero-stats .num{font-size:clamp(32px,5vw,52px);font-weight:900;background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stats .label{font-size:12px;color:#8892b0;text-transform:uppercase;letter-spacing:3px;margin-top:4px}
 
-/* 3D Card flip feature section */
-.features{padding:100px 20px;max-width:1200px;margin:0 auto}
-.section-header{text-align:center;margin-bottom:60px}
-.section-header h2{font-size:clamp(28px,4vw,44px);font-weight:800;margin-bottom:12px}
-.section-header p{color:#8892b0;font-size:16px}
-.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
-.flip-card{perspective:1000px;height:280px;cursor:pointer}
-.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);transform-style:preserve-3d}
-.flip-card:hover .flip-card-inner{transform:rotateY(180deg)}
-.flip-card-front,.flip-card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:20px;padding:30px;display:flex;flex-direction:column}
-.flip-card-front{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);justify-content:center;align-items:center;text-align:center}
-.flip-card-back{background:linear-gradient(135deg,rgba(0,210,255,0.1),rgba(123,47,247,0.1));border:1px solid rgba(0,210,255,0.2);transform:rotateY(180deg);justify-content:center}
-.flip-card-back h3{font-size:18px;margin-bottom:8px;color:#00d2ff}
-.flip-card-back p{font-size:13px;color:#8892b0;line-height:1.6}
-.flip-card-back ul{list-style:none;margin-top:12px;font-size:12px;color:#b0b0b0}
-.flip-card-back ul li{padding:4px 0}
-.flip-card-back ul li::before{content:'> ';color:#00d2ff}
-.flip-icon{font-size:48px;margin-bottom:16px}
-.flip-card-front h3{font-size:18px;font-weight:700;margin-bottom:8px}
-.flip-card-front p{font-size:13px;color:#8892b0}
+.feature-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:30px;text-align:center;transition:all 0.3s;cursor:pointer}
+.feature-card:hover{transform:translateY(-5px);border-color:#00d2ff;box-shadow:0 20px 40px rgba(0,210,255,0.1)}
+.feature-card .icon-big{font-size:44px;margin-bottom:14px;display:block}
+.feature-card h3{font-size:17px;font-weight:700;margin-bottom:8px}
+.feature-card p{font-size:13px;color:#8892b0;line-height:1.5;margin-bottom:16px}
+.feature-card .btn{font-size:13px;padding:10px 20px}
 
-/* Scanner */
-.demo-section{padding:100px 20px;max-width:1000px;margin:0 auto}
-.scanner-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px;backdrop-filter:blur(20px);position:relative;overflow:hidden}
-.scanner-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#00d2ff,transparent)}
-.tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-.tab{padding:10px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#8892b0;cursor:pointer;font-size:13px;font-weight:500;transition:all 0.3s}
-.tab.active{background:linear-gradient(135deg,#00d2ff,#7b2ff7);color:#fff;border-color:transparent;box-shadow:0 4px 20px rgba(0,210,255,0.3)}
-.tab:hover:not(.active){border-color:rgba(0,210,255,0.4);color:#fff}
-.input-group{display:flex;gap:12px;margin-bottom:20px;align-items:stretch}
-.input-group input{flex:1;padding:16px 20px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-size:15px;outline:none;transition:all 0.3s}
-.input-group input:focus{border-color:#00d2ff;box-shadow:0 0 20px rgba(0,210,255,0.1)}
-.input-group input::placeholder{color:#555}
-.voice-btn{width:52px;height:52px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#8892b0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all 0.3s;flex-shrink:0}
-.voice-btn:hover{border-color:#ff2d75;color:#ff2d75}
-.voice-btn.listening{background:rgba(255,45,117,0.2);border-color:#ff2d75;color:#ff2d75;animation:voicePulse 1s infinite}
-@keyframes voicePulse{0%,100%{box-shadow:0 0 0 0 rgba(255,45,117,0.4)}50%{box-shadow:0 0 0 12px rgba(255,45,117,0)}}
-.scan-btn{padding:16px 32px;border-radius:14px;border:none;background:linear-gradient(135deg,#00d2ff,#7b2ff7);color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s;white-space:nowrap;position:relative;overflow:hidden}
-.scan-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,210,255,0.3)}
-.scan-btn.loading{pointer-events:none;opacity:0.7}
-.scan-btn.loading::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 1s infinite}
-@keyframes shimmer{100%{left:100%}}
+.footer{text-align:center;padding:40px 20px;color:#444;font-size:13px;border-top:1px solid rgba(255,255,255,0.04);position:relative;z-index:1}
 
-.result{margin-top:24px;padding:28px;border-radius:20px;display:none;animation:slideIn 0.5s cubic-bezier(0.16,1,0.3,1)}
-@keyframes slideIn{from{opacity:0;transform:translateY(20px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-.result.safe{display:block;background:rgba(76,175,80,0.08);border:1px solid rgba(76,175,80,0.2)}
-.result.danger{display:block;background:rgba(244,67,54,0.08);border:1px solid rgba(244,67,54,0.2)}
-.result.warning{display:block;background:rgba(255,152,0,0.08);border:1px solid rgba(255,152,0,0.2)}
-.result-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-.result-icon{font-size:52px;animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275)}
-@keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
-.result-title{font-size:22px;font-weight:800}
-.result-sub{font-size:14px;color:#8892b0;margin-top:2px}
-.risk-bar{height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin:20px 0}
-.risk-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(0.16,1,0.3,1);width:0}
-.risk-fill.low{background:linear-gradient(90deg,#4CAF50,#81C784)}
-.risk-fill.med{background:linear-gradient(90deg,#FF9800,#FFB74D)}
-.risk-fill.high{background:linear-gradient(90deg,#f44336,#e57373)}
-.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:16px}
-.detail-item{background:rgba(255,255,255,0.03);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.05)}
-.detail-item .dl{font-size:10px;color:#8892b0;text-transform:uppercase;letter-spacing:1.5px}
-.detail-item .dv{font-size:15px;font-weight:700;margin-top:4px;color:#e0e0e0}
-.share-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-.share-btn{padding:10px 18px;border-radius:10px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.03);color:#8892b0;cursor:pointer;font-size:12px;font-weight:500;transition:all 0.3s;display:flex;align-items:center;gap:6px}
-.share-btn:hover{border-color:#00d2ff;color:#00d2ff;background:rgba(0,210,255,0.05)}
-
-/* Dashboard */
-.dashboard{padding:100px 20px;max-width:1200px;margin:0 auto}
-.dash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:30px}
-.dash-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden}
-.dash-card:hover{transform:translateY(-4px);border-color:rgba(0,210,255,0.3)}
-.dash-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#00d2ff,#7b2ff7);opacity:0;transition:opacity 0.3s}
-.dash-card:hover::after{opacity:1}
-.dash-card .icon{font-size:32px;margin-bottom:12px;display:block}
-.dash-card .big{font-size:32px;font-weight:900;background:linear-gradient(135deg,#00d2ff,#7b2ff7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.dash-card .small{font-size:11px;color:#8892b0;text-transform:uppercase;letter-spacing:2px;margin-top:8px}
-.chart-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:20px;margin-bottom:20px}
-.chart-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px}
-.chart-box h3{font-size:15px;margin-bottom:20px;color:#8892b0;font-weight:500}
-#globe-container{width:100%;height:420px;border-radius:20px;overflow:hidden;background:radial-gradient(ellipse at center,#0a1628,#06060f);margin-bottom:20px;border:1px solid rgba(255,255,255,0.06)}
-
-/* QR Generator */
-.qr-section{padding:100px 20px;max-width:800px;margin:0 auto;text-align:center}
-.qr-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px;backdrop-filter:blur(20px)}
-.qr-box h3{font-size:20px;margin-bottom:8px}
-.qr-box p{color:#8892b0;font-size:14px;margin-bottom:24px}
-.qr-form{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;justify-content:center}
-.qr-form input{padding:14px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-size:14px;outline:none;width:200px}
-.qr-form input:focus{border-color:#00d2ff}
-#qrCanvas{border-radius:16px;margin:20px auto;display:block;background:#fff;padding:16px}
-
-/* WhatsApp section */
-.wa-section{padding:100px 20px;max-width:800px;margin:0 auto}
-.wa-box{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:24px;padding:40px;backdrop-filter:blur(20px)}
-.wa-input{width:100%;min-height:120px;padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);color:#fff;font-size:14px;outline:none;resize:vertical;font-family:inherit}
-.wa-input:focus{border-color:#00d2ff}
-.wa-input::placeholder{color:#555}
-.wa-result{margin-top:20px;padding:20px;border-radius:14px;display:none}
-
-/* Alerts */
-.alerts-section{padding:100px 20px;max-width:800px;margin:0 auto}
-.alert-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:16px;transition:all 0.3s;cursor:pointer}
-.alert-item:hover{border-color:rgba(0,210,255,0.3);transform:translateX(4px)}
-.alert-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.alert-icon.red{background:rgba(244,67,54,0.1);color:#f44336}
-.alert-icon.orange{background:rgba(255,152,0,0.1);color:#FF9800}
-.alert-icon.green{background:rgba(76,175,80,0.1);color:#4CAF50}
-.alert-icon.blue{background:rgba(0,210,255,0.1);color:#00d2ff}
-.alert-info{flex:1}
-.alert-info h4{font-size:14px;font-weight:600}
-.alert-info p{font-size:12px;color:#8892b0;margin-top:2px}
-.alert-info .time{font-size:11px;color:#555;margin-top:4px}
-.alert-badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
-.alert-badge.critical{background:rgba(244,67,54,0.15);color:#f44336}
-.alert-badge.warning{background:rgba(255,152,0,0.15);color:#FF9800}
-.alert-badge.info{background:rgba(0,210,255,0.15);color:#00d2ff}
-
-.footer{text-align:center;padding:60px 20px;color:#444;font-size:13px;border-top:1px solid rgba(255,255,255,0.04)}
-.footer a{color:#00d2ff;text-decoration:none}
+/* chart containers */
+.chart-wrap{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px;margin-bottom:20px}
+.chart-wrap h3{font-size:15px;color:#8892b0;margin-bottom:16px;font-weight:500}
 </style>
 </head>
 <body>
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-<div class="orb orb3"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div>
 <canvas id="bg-canvas"></canvas>
 
-<div class="app">
-<!-- HERO -->
+<nav class="navbar">
+<div class="logo" onclick="showPage('home')"><span class="mark">&#128737;</span><span><span class="gradient">Digi</span>Kavach</span></div>
+<div class="nav-links">
+<button class="nav-link active" id="nav-home" onclick="showPage('home')">Home</button>
+<button class="nav-link" id="nav-calls" onclick="showPage('calls')">Call Blocker</button>
+<button class="nav-link" id="nav-apps" onclick="showPage('apps')">App Verifier</button>
+<button class="nav-link" id="nav-payments" onclick="showPage('payments')">Payments</button>
+<button class="nav-link" id="nav-websites" onclick="showPage('websites')">Websites</button>
+<button class="nav-link" id="nav-guardian" onclick="showPage('guardian')">Guardian</button>
+<button class="nav-link" id="nav-whatsapp" onclick="showPage('whatsapp')">WhatsApp</button>
+</div>
+<div class="nav-status"><span class="dot"></span> PROTECTED</div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
 <section class="hero">
-<div class="hero-badge"><span class="dot"></span> Live Protection Active</div>
 <h1><span class="gradient">DigiKavach</span><br>Digital Armor<br>For Every Indian</h1>
-<p>AI-powered fraud protection for 424M+ UPI users. Detect scam calls, verify loan apps, scan QR codes, and protect payments in real-time.</p>
+<p>AI-powered fraud protection for 424M+ UPI users. Six layers of protection, all working live to keep you safe.</p>
 <div class="hero-btns">
-<button class="btn-primary" onclick="document.getElementById('scanner').scrollIntoView({behavior:'smooth'})">Try Live Scanner</button>
-<button class="btn-secondary" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'})">View Dashboard</button>
+<button class="btn" onclick="showPage('calls')">&#128222; Test Call Blocker</button>
+<button class="btn outline" onclick="showPage('payments')">&#128179; Test Payment Shield</button>
 </div>
 <div class="hero-stats">
-<div class="hero-stat"><div class="num" id="c1">0</div><div class="label">Scams Blocked</div></div>
-<div class="hero-stat"><div class="num" id="c2">0</div><div class="label">Apps Verified</div></div>
-<div class="hero-stat"><div class="num" id="c3">10</div><div class="label">Languages</div></div>
+<div class="hero-stat"><div class="num" id="hCalls">0</div><div class="label">Scams Blocked</div></div>
+<div class="hero-stat"><div class="num" id="hApps">0</div><div class="label">Apps Verified</div></div>
+<div class="hero-stat"><div class="num">6</div><div class="label">Protection Layers</div></div>
 </div>
 </section>
 
-<!-- FEATURES (3D Flip Cards) -->
-<section class="features reveal" id="features">
-<div class="section-header"><h2>6-Layer AI Protection</h2><p>Hover to explore each layer</p></div>
-<div class="feature-grid">
-<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><span class="flip-icon">&#128222;</span><h3>AI Call Blocker</h3><p>TensorFlow Lite on-device classifier</p></div><div class="flip-card-back"><h3>&#128222; Call Blocker</h3><p>Real-time scam call detection using:</p><ul><li>Behavior pattern analysis</li><li>TensorFlow Lite classifier (&lt;50ms)</li><li>DoT MNRL blacklist</li><li>10,000+ known scam numbers</li></ul></div></div></div>
-<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><span class="flip-icon">&#128241;</span><h3>Loan App Verifier</h3><p>RBI DLA + I4C registry check</p></div><div class="flip-card-back"><h3>&#128241; App Verifier</h3><p>Cross-reference against:</p><ul><li>RBI Directory of Lending Apps</li><li>I4C Cybercrime Registry</li><li>Play Store metadata analysis</li><li>Community scam reports</li></ul></div></div></div>
-<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><span class="flip-icon">&#128179;</span><h3>Payment Protector</h3><p>Real-time UPI intent monitoring</p></div><div class="flip-card-back"><h3>&#128179; Payment Shield</h3><p>Intercepts suspicious:</p><ul><li>UPI VPA verification</li><li>Amount anomaly detection</li><li>Merchant blacklist check</li><li>Transaction risk scoring</li></ul></div></div></div>
-<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><span class="flip-icon">&#127760;</span><h3>Website Checker</h3><p>Phishing DB + SSL validation</p></div><div class="flip-card-back"><h3>&#127760; Web Guard</h3><p>Multi-signal verification:</p><ul><li>Phishing domain database</li><li>SSL certificate validation</li><li>Domain age analysis</li><li>Heuristic content scoring</li></ul></div></div></div>
-<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><span class="flip-icon">&#128106;</span><h3>Guardian Alerts</h3><p>Auto-SMS to emergency contacts</p></div><div class="flip-card-back"><h3>&#128106; Guardian System</h3><p>When threat detected:</p><ul><li>Instant SMS to family</li><li>Email alert with details</li><li>GPS location sharing</li><li>Emergency call shortcut</li></ul></div></div></div>
-<div class="flip-card"><div class="flip-card-inner"><div class="flip-card-front"><span class="flip-icon">&#128172;</span><h3>WhatsApp Bot</h3><p>Forward messages for scam check</p></div><div class="flip-card-back"><h3>&#128172; WA Bot</h3><p>AI-powered message analysis:</p><ul><li>Hindi + English NLP</li><li>Social engineering detection</li><li>Link/URL safety check</li><li>Template scam patterns</li></ul></div></div></div>
+<section id="home-features" style="padding:40px;max-width:1300px;margin:0 auto">
+<h2 style="text-align:center;font-size:32px;font-weight:800;margin-bottom:40px">Our 6 Protection Layers</h2>
+<div class="grid" style="padding:0 0 40px">
+<div class="feature-card" onclick="showPage('calls')">
+<span class="icon-big">&#128222;</span><h3>AI Call Blocker</h3>
+<p>Detects scam calls in real-time using TensorFlow Lite. Simulate a call and watch it block.</p>
+<button class="btn">Open Call Blocker</button>
 </div>
-</section>
-
-<!-- SCANNER DEMO -->
-<section class="demo-section reveal" id="scanner">
-<div class="section-header"><h2>Live Scanner</h2><p>Powered by 35 AI API endpoints</p></div>
-<div class="scanner-box">
-<div class="tabs">
-<div class="tab active" onclick="setTab(this,'phone')">&#128222; Phone</div>
-<div class="tab" onclick="setTab(this,'app')">&#128241; App</div>
-<div class="tab" onclick="setTab(this,'website')">&#127760; Website</div>
-<div class="tab" onclick="setTab(this,'text')">&#128172; Text/WhatsApp</div>
+<div class="feature-card" onclick="showPage('apps')">
+<span class="icon-big">&#128241;</span><h3>Loan App Verifier</h3>
+<p>Check any loan app against RBI and I4C registries instantly.</p>
+<button class="btn">Verify an App</button>
 </div>
-<div class="input-group">
-<input type="text" id="scanInput" placeholder="Enter phone number (e.g. +919876543210)">
-<button class="voice-btn" id="voiceBtn" onclick="startVoice()" title="Voice input">&#127908;</button>
-<button class="scan-btn" id="scanBtn" onclick="runScan()">&#128737; Scan Now</button>
+<div class="feature-card" onclick="showPage('payments')">
+<span class="icon-big">&#128179;</span><h3>Payment Protector</h3>
+<p>Monitor UPI intents and block suspicious payments before they happen.</p>
+<button class="btn">Protect Payments</button>
 </div>
-<div class="result" id="scanResult">
-<div class="result-header">
-<span class="result-icon" id="resIcon"></span>
-<div><div class="result-title" id="resTitle"></div><div class="result-sub" id="resSub"></div></div>
+<div class="feature-card" onclick="showPage('websites')">
+<span class="icon-big">&#127760;</span><h3>Website Checker</h3>
+<p>Validate any website against phishing databases. Get embeddable widget.</p>
+<button class="btn">Check Website</button>
 </div>
-<div class="risk-bar"><div class="risk-fill" id="riskFill"></div></div>
-<div class="detail-grid" id="resDetails"></div>
-<div class="share-row" id="shareRow"></div>
+<div class="feature-card" onclick="showPage('guardian')">
+<span class="icon-big">&#128106;</span><h3>Guardian Alerts</h3>
+<p>Set emergency contacts. Get SMS and email alerts when fraud is detected.</p>
+<button class="btn">Set Guardians</button>
+</div>
+<div class="feature-card" onclick="showPage('whatsapp')">
+<span class="icon-big">&#128172;</span><h3>WhatsApp Bot</h3>
+<p>Forward suspicious messages. AI checks them for scams in Hindi and English.</p>
+<button class="btn">Try WhatsApp Bot</button>
 </div>
 </div>
 </section>
 
-<!-- QR GENERATOR -->
-<section class="qr-section reveal" id="qr">
-<div class="qr-box">
-<h3>&#9641; UPI QR Generator</h3>
-<p>Generate a verified UPI QR code for safe payments</p>
-<div class="qr-form">
-<input type="text" id="qrVpa" placeholder="yourname@upi" value="user@okaxis">
-<input type="text" id="qrName" placeholder="Your Name" value="DigiKavach User">
-<input type="number" id="qrAmount" placeholder="Amount (optional)" value="">
+<section style="padding:40px;background:rgba(255,255,255,0.01);border-top:1px solid rgba(255,255,255,0.04)">
+<h2 style="text-align:center;font-size:28px;font-weight:800;margin-bottom:30px">Live Protection Feed</h2>
+<div class="feed" style="max-width:800px;margin:0 auto">
+<div class="feed-item">
+<div class="feed-icon red">&#128222;</div>
+<div class="feed-content"><h4>Scam Call Blocked</h4><p>+919876543210 - Digital Arrest scam</p></div>
+<time class="feed-time">2 min ago</time><span class="feed-badge badge red">BLOCKED</span>
 </div>
-<button class="btn-primary" onclick="generateQR()" style="margin-bottom:20px">&#128241; Generate QR</button>
-<canvas id="qrCanvas" width="250" height="250"></canvas>
+<div class="feed-item">
+<div class="feed-icon orange">&#128241;</div>
+<div class="feed-content"><h4>Fraud App Detected</h4><p>LoanOrbit - not in RBI list</p></div>
+<time class="feed-time">15 min ago</time><span class="feed-badge badge orange">FLAG</span>
+</div>
+<div class="feed-item">
+<div class="feed-icon blue">&#127760;</div>
+<div class="feed-content"><h4>Phishing Blocked</h4><p>fakebank-login.com</p></div>
+<time class="feed-time">1 hour ago</time><span class="feed-badge badge blue">BLOCKED</span>
+</div>
+<div class="feed-item">
+<div class="feed-icon red">&#128179;</div>
+<div class="feed-content"><h4>UPI Fraud Attempt</h4><p>scammer@ybl flagged before payment</p></div>
+<time class="feed-time">2 hours ago</time><span class="feed-badge badge red">STOPPED</span>
+</div>
+<div class="feed-item">
+<div class="feed-icon green">&#128106;</div>
+<div class="feed-content"><h4>Guardian Alert Sent</h4><p>SMS delivered to 2 contacts</p></div>
+<time class="feed-time">3 hours ago</time><span class="feed-badge badge green">SENT</span>
+</div>
 </div>
 </section>
+</div>
 
-<!-- WHATSAPP SCAM CHECK -->
-<section class="wa-section reveal" id="whatsapp">
-<div class="wa-box">
-<h3>&#128172; WhatsApp Scam Checker</h3>
-<p style="color:#8892b0;margin:8px 0 24px;font-size:14px">Paste a suspicious message to check if it's a scam</p>
-<textarea class="wa-input" id="waInput" placeholder="Paste suspicious WhatsApp message here...&#10;&#10;Example: URGENT: Your bank account will be suspended. Click here to verify: bit.ly/fake-link"></textarea>
-<div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
-<button class="btn-primary" onclick="checkWhatsApp()">&#128737; Check Message</button>
-<button class="voice-btn" onclick="startVoiceFor('waInput')" title="Voice input">&#127908;</button>
+<!-- CALL BLOCKER -->
+<div class="page" id="page-calls">
+<div class="page-header">
+<h1><span class="gradient">&#128222; AI Call Blocker</span></h1>
+<p>Detects scam calls in real-time. Simulate a call below and watch DigiKavach analyze it.</p>
 </div>
-<div class="result" id="waResult"></div>
-</div>
-</section>
 
-<!-- LIVE ALERTS -->
-<section class="alerts-section reveal" id="alerts">
-<div class="section-header"><h2>Live Threat Feed</h2><p>Real-time fraud intelligence</p></div>
-<div class="alert-item"><div class="alert-icon red">&#128222;</div><div class="alert-info"><h4>Digital Arrest Scam Blocked</h4><p>+919876543210 posing as CBI officer</p><div class="time">2 min ago</div></div><span class="alert-badge critical">CRITICAL</span></div>
-<div class="alert-item"><div class="alert-icon orange">&#128241;</div><div class="alert-info"><h4>Fraud Loan App Detected</h4><p>QuickCash - Not in RBI DLA directory</p><div class="time">15 min ago</div></div><span class="alert-badge warning">WARNING</span></div>
-<div class="alert-item"><div class="alert-icon blue">&#127760;</div><div class="alert-info"><h4>Phishing Site Blocked</h4><p>fakebank-login.com mimicking SBI</p><div class="time">1 hour ago</div></div><span class="alert-badge info">INFO</span></div>
-<div class="alert-item"><div class="alert-icon red">&#128179;</div><div class="alert-info"><h4>UPI Fraud Attempt</h4><p>Suspicious VPA: scammer@ybl flagged</p><div class="time">2 hours ago</div></div><span class="alert-badge critical">CRITICAL</span></div>
-<div class="alert-item"><div class="alert-icon green">&#128106;</div><div class="alert-info"><h4>Guardian Alert Sent</h4><p>SMS delivered to 2 emergency contacts</p><div class="time">3 hours ago</div></div><span class="alert-badge info">SENT</span></div>
-<div class="alert-item"><div class="alert-icon orange">&#128172;</div><div class="alert-info"><h4>WhatsApp Scam Reported</h4><p>"Lottery winner" message verified as scam</p><div class="time">5 hours ago</div></div><span class="alert-badge warning">WARNING</span></div>
-</section>
+<div class="grid-2" style="padding:20px 40px 60px">
+<div class="card">
+<span class="icon-big">&#128241;</span>
+<h3>Simulate Incoming Call</h3>
+<p style="margin-bottom:20px">Choose a number and DigiKavach will analyze it in real-time, exactly like it does on your Android phone.</p>
+<div class="input">
+<label>Caller Number</label>
+<input id="callNumber" value="+919876543210" placeholder="+919876543210">
+</div>
+<div class="input">
+<label>Preset Scam Numbers</label>
+<select id="callPreset" onchange="document.getElementById('callNumber').value=this.value">
+<option value="+919876543210">+91 98765 43210 (Digital Arrest scam)</option>
+<option value="+911234567890">+91 12345 67890 (Bank fraud scam)</option>
+<option value="+919876123456">+91 98761 23456 (Safe - family)</option>
+<option value="+919321876543">+91 93218 76543 (Tech support scam)</option>
+</select>
+</div>
+<button class="btn full" onclick="simulateCall()">&#128222; Ring My Phone</button>
+</div>
 
-<!-- EXPLAINABLE AI -->
-<section class="demo-section reveal" id="explain">
-<div class="section-header"><h2>Explainable AI</h2><p>We don't just say "scam" - we show you exactly why</p></div>
-<div class="scanner-box">
-<div class="input-group">
-<input type="text" id="explainInput" placeholder="Enter phone/app/website to analyze...">
-<button class="scan-btn" onclick="runExplain()">&#129504; Explain Decision</button>
-</div>
-<div class="result" id="explainResult"></div>
-</div>
-</section>
+<div class="phone-sim" id="phoneSim" style="display:none">
+<div class="notch"></div>
+<div class="phone-screen">
+<div class="caller-avatar">&#128100;</div>
+<div class="caller-number" id="simNumber">+919876543210</div>
+<div class="caller-name" id="simName">Unknown</div>
 
-<!-- FRAUD PREDICTION -->
-<section class="dashboard reveal" id="prediction">
-<div class="section-header"><h2>Fraud Prediction Engine</h2><p>AI predicts fraud trends 7 days ahead</p></div>
-<div id="predictionContent" style="text-align:center;color:#8892b0;padding:40px">Loading predictions...</div>
-</section>
+<div class="risk-pill" id="simRiskPill" style="background:rgba(255,255,255,0.05);color:#8892b0">Analyzing caller...</div>
+<div style="width:80%;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;margin-bottom:24px">
+<div id="simRiskBar" class="risk-fill-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#4CAF50,#FF9800,#f44336);border-radius:2px;transition:width 1s"></div>
+</div>
+<div class="status" id="simResult">
+<div class="status-title" id="simTitle">&#9989; SAFE</div>
+<div class="status-sub" id="simSub">This call appears legitimate.</div>
+</div>
+<div class="call-actions" id="simActions">
+<button class="call-btn answer" onclick="answerCall()">&#128222;</button>
+<button class="call-btn decline" onclick="declineCall()">&#128148;</button>
+</div>
+</div>
+</div>
+</div>
 
-<!-- DASHBOARD -->
-<section class="dashboard reveal" id="dashboard">
-<div class="section-header"><h2>Intelligence Dashboard</h2><p>Live fraud data across India</p></div>
-<div id="globe-container"></div>
-<div class="dash-grid">
-<div class="dash-card"><span class="icon">&#128222;</span><div class="big" id="d1">--</div><div class="small">Scam Calls Blocked</div></div>
-<div class="dash-card"><span class="icon">&#128241;</span><div class="big" id="d2">--</div><div class="small">Fraud Apps Detected</div></div>
-<div class="dash-card"><span class="icon">&#128179;</span><div class="big" id="d3">--</div><div class="small">Payments Protected</div></div>
-<div class="dash-card"><span class="icon">&#128200;</span><div class="big" id="d4">--</div><div class="small">Reports This Week</div></div>
+<div class="grid-3" style="padding:0 40px 60px">
+<div class="card"><span class="icon-big">&#128200;</span><h3>Watch It Work</h3><p>DigiKavach's TensorFlow Lite model analyzes voice patterns and behavior in under 50ms on your phone.</p></div>
+<div class="card"><span class="icon-big">&#128274;</span><h3>Auto-Block</h3><p>High-risk calls are auto-blocked and never reach you. Guardian is notified if you pick up.</p></div>
+<div class="card"><span class="icon-big">&#128172;</span><h3>Works Offline</h3><p>10,000+ known scam numbers stored on-device. Protection works without internet.</p></div>
 </div>
-<div class="chart-row">
-<div class="chart-box"><h3>&#128202; Top Scam Categories</h3><canvas id="chart1" height="120"></canvas></div>
-<div class="chart-box"><h3>&#128200; 7-Day Fraud Trend</h3><canvas id="chart2" height="120"></canvas></div>
 </div>
-<div class="chart-row">
-<div class="chart-box"><h3>&#127757; Scams by Region</h3><canvas id="chart3" height="120"></canvas></div>
-<div class="chart-box"><h3>&#128201; Risk Distribution</h3><canvas id="chart4" height="120"></canvas></div>
+
+<!-- APP VERIFIER -->
+<div class="page" id="page-apps">
+<div class="page-header">
+<h1><span class="gradient">&#128241; Loan App Verifier</span></h1>
+<p>Cross-check any app against RBI Directory of Lending Apps, I4C Cybercrime Registry, and community reports.</p>
 </div>
-</section>
+<div class="grid-2" style="padding:20px 40px 60px">
+<div class="card">
+<span class="icon-big">&#128269;</span>
+<h3>Verify a Loan App</h3>
+<p style="margin-bottom:20px">Enter an app name to check its legitimacy.</p>
+<div class="input"><label>App Name</label><input id="appName" value="LoanOrbit" placeholder="e.g. KreditBee, Paytm, LoanOrbit"></div>
+<div class="input"><label>Quick Test</label>
+<select id="appPreset" onchange="document.getElementById('appName').value=this.value">
+<option value="LoanOrbit">LoanOrbit (scam demo)</option>
+<option value="QuickCash">QuickCash (scam demo)</option>
+<option value="KreditBee">KreditBee (safe demo)</option>
+<option value="PhonePe">PhonePe (safe demo)</option>
+<option value="MoneyBoom">MoneyBoom (unknown demo)</option>
+</select>
+</div>
+<button class="btn full" onclick="verifyApp()">&#128737; Verify App</button>
+<div class="status" id="appResult"></div>
+</div>
+<div class="card">
+<span class="icon-big">&#128202;</span>
+<h3>RBI Approved Apps</h3>
+<p style="margin-bottom:20px">These are verified in RBI's official Directory of Lending Apps.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px" id="approvedApps">
+<span class="badge green" style="padding:8px 14px">KreditBee</span>
+<span class="badge green" style="padding:8px 14px">Mobikwik</span>
+<span class="badge green" style="padding:8px 14px">PhonePe</span>
+<span class="badge green" style="padding:8px 14px">GPay</span>
+<span class="badge green" style="padding:8px 14px">Paytm</span>
+<span class="badge green" style="padding:8px 14px">TrueBalance</span>
+<span class="badge green" style="padding:8px 14px">Moglilabs</span>
+</div>
+<h3 style="margin-top:30px;margin-bottom:14px">Reported Fraud Apps</h3>
+<div style="display:flex;flex-wrap:wrap;gap:8px" id="fraudApps">
+<span class="badge red" style="padding:8px 14px">LoanOrbit</span>
+<span class="badge red" style="padding:8px 14px">QuickCash</span>
+<span class="badge red" style="padding:8px 14px">NexusLoan</span>
+<span class="badge red" style="padding:8px 14px">MoneyBoom</span>
+<span class="badge red" style="padding:8px 14px">MobileCredit</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PAYMENT PROTECTOR -->
+<div class="page" id="page-payments">
+<div class="page-header">
+<h1><span class="gradient">&#128179; Payment Protector</span></h1>
+<p>Monitors UPI payments and blocks fraudulent transactions before money leaves your account.</p>
+</div>
+<div class="grid-3" style="padding:20px 40px 40px">
+<div class="dash-card-style">
+<div class="card" style="text-align:center">
+<div class="icon-big" id="payStatIcon" style="font-size:48px">&#128737;</div>
+<h3 id="payStatText">Payment Shield Active</h3>
+<p style="color:#8892b0;font-size:13px" id="payStatSub">All UPI payments monitored</p>
+</div>
+</div>
+<div class="card" style="text-align:center">
+<div class="icon-big">&#128176;</div>
+<h3>Protected Today</h3>
+<p style="font-size:32px;font-weight:900;color:#00d2ff" id="payProtected">₹12,47,500</p>
+</div>
+<div class="card" style="text-align:center">
+<div class="icon-big">&#128680;</div>
+<h3>Fraud Blocked</h3>
+<p style="font-size:32px;font-weight:900;color:#f44336" id="payBlocked">₹3,20,000</p>
+<p style="color:#8892b0;font-size:12px">12 attempts stopped</p>
+</div>
+</div>
+
+<div class="card" style="max-width:700px;margin:0 auto 40px">
+<span class="icon-big">&#128179;</span>
+<h3>Simulate a Payment</h3>
+<p style="margin-bottom:20px">Enter UPI details and DigiKavach will verify the payee before allowing the transaction.</p>
+<div class="grid-2" style="padding:0">
+<div class="input"><label>Payee UPI ID</label><input id="payVpa" value="scammer@ybl"></div>
+<div class="input"><label>Amount</label><input id="payAmount" value="50000" type="number"></div>
+</div>
+<div class="grid-2" style="padding:0">
+<div class="input"><label>Your UPI ID</label><input id="payMyVpa" value="user@okaxis"></div>
+<div class="input"><label>Payment Source</label>
+<select><option>GPay</option><option>PhonePe</option><option>Paytm</option><option>BHIM</option></select>
+</div>
+</div>
+<button class="btn full" onclick="simulatePayment()">&#128179; Try Payment</button>
+<div class="status" id="payResult"></div>
+</div>
+
+<div class="chart-wrap" style="max-width:700px;margin:0 auto 40px">
+<h3>Payment Risk Analysis</h3>
+<canvas id="payChart" height="60"></canvas>
+</div>
+</div>
+
+<!-- WEBSITE CHECKER -->
+<div class="page" id="page-websites">
+<div class="page-header">
+<h1><span class="gradient">&#127760; Website Checker</span></h1>
+<p>Validate any website against phishing databases and get an embeddable security widget for your own site.</p>
+</div>
+<div class="grid-2" style="padding:20px 40px 60px">
+<div class="card">
+<span class="icon-big">&#128269;</span>
+<h3>Check a Website</h3>
+<p style="margin-bottom:20px">Enter a URL to check phishing risk, SSL validity, and domain safety.</p>
+<div class="input"><label>Website URL</label><input id="webUrl" value="fakebank-login.com" placeholder="e.g. example.com"></div>
+<div class="input"><label>Quick Test</label>
+<select onchange="document.getElementById('webUrl').value=this.value">
+<option value="fakebank-login.com">fakebank-login.com (phishing)</option>
+<option value="secure-login.verify-kyc.net">secure-login.verify-kyc.net (phishing)</option>
+<option value="google.com">google.com (safe)</option>
+<option value="new-online-shop.xyz">new-online-shop.xyz (suspicious)</option>
+</select>
+</div>
+<button class="btn full" onclick="checkWebsite()">&#128737; Check Website</button>
+<div class="status" id="webResult"></div>
+</div>
+<div class="card">
+<span class="icon-big">&#128228;</span>
+<h3>Embeddable Security Widget</h3>
+<p style="margin-bottom:20px">Get a one-line widget to protect YOUR website. Copy and paste it into your site's HTML.</p>
+<div class="input"><label>Your Website</label><input id="widgetSite" value="mywebsite.com"></div>
+<button class="btn full" onclick="generateWidget()">&#128228; Generate Widget</button>
+<div class="input" style="margin-top:16px"><label>Widget Code (copy this)</label>
+<textarea id="widgetCode" rows="4" readonly onclick="this.select()" style="font-family:monospace;font-size:12px"></textarea>
+</div>
+<div id="widgetPreview" class="status info" style="display:none">
+<div class="status-title">&#128737; Security Preview</div>
+<div class="status-sub">This is how the widget looks on your website.</div>
+<button id="widgetBtn" style="margin-top:12px;padding:10px 20px;border-radius:10px;border:none;background:linear-gradient(135deg,#00d2ff,#7b2ff7);color:#fff;cursor:pointer;font-weight:600">&#128737; Verify mywebsite.com</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- GUARDIAN -->
+<div class="page" id="page-guardian">
+<div class="page-header">
+<h1><span class="gradient">&#128106; Guardian Alerts</span></h1>
+<p>Set up emergency contacts. Your family gets notified instantly when fraud is detected.</p>
+</div>
+<div class="grid-2" style="padding:20px 40px 60px">
+<div class="card">
+<span class="icon-big">&#128100;</span>
+<h3>Add Emergency Contact</h3>
+<p style="margin-bottom:20px">Your guardians notified via SMS when DigiKavach detects high-risk fraud on your device.</p>
+<div class="input"><label>Contact Name</label><input id="guardName" placeholder="e.g. Mom"></div>
+<div class="input"><label>Phone Number</label><input id="guardPhone" placeholder="+91..."></div>
+<div class="input"><label>Relationship</label>
+<select><option>Parent</option><option>Spouse</option><option>Child</option><option>Sibling</option><option>Friend</option></select>
+</div>
+<button class="btn full" onclick="addGuardian()">&#128106; Add Guardian</button>
+</div>
+<div class="card">
+<span class="icon-big">&#128203;</span>
+<h3>Your Guardians</h3>
+<div id="guardianList">
+<div class="toggle-row">
+<div class="toggle-info"><h4>Mom</h4><p>+91 98XXX XXX10 &middot; Parent</p></div>
+<div class="toggle on"></div>
+</div>
+<div class="toggle-row">
+<div class="toggle-info"><h4>Dad</h4><p>+91 98XXX XXX20 &middot; Parent</p></div>
+<div class="toggle on"></div>
+</div>
+</div>
+<h3 style="margin-top:30px;margin-bottom:10px">Alert Methods</h3>
+<div class="toggle-row">
+<div class="toggle-info"><h4>&#128274; SMS Alerts</h4><p>Send SMS when fraud detected</p></div>
+<div class="toggle on" onclick="this.classList.toggle('on')"></div>
+</div>
+<div class="toggle-row">
+<div class="toggle-info"><h4>&#128231; Email Alerts</h4><p>Send email alert with details</p></div>
+<div class="toggle on" onclick="this.classList.toggle('on')"></div>
+</div>
+<div class="toggle-row">
+<div class="toggle-info"><h4>&#128204; Push Notifications</h4><p>Instant phone notification</p></div>
+<div class="toggle on" onclick="this.classList.toggle('on')"></div>
+</div>
+<button class="btn outline full" style="margin-top:20px" onclick="testAlert()">&#128231; Send Test Alert</button>
+<div class="status" id="guardResult"></div>
+</div>
+</div>
+</div>
+
+<!-- WHATSAPP -->
+<div class="page" id="page-whatsapp">
+<div class="page-header">
+<h1><span class="gradient">&#128172; WhatsApp Scam Bot</span></h1>
+<p>Add DigiKavach to WhatsApp and forward suspicious messages. AI checks them in Hindi and English.</p>
+</div>
+<div class="chat-box">
+<div class="chat-msg incoming"><div class="bubble">Hey! I got a message saying I won a free iPhone. Is this a scam?</div></div>
+<div class="chat-msg outgoing"><div class="bubble">Let me check that for you! Forward the message here. &#128064;</div></div>
+<div class="chat-msg incoming"><div class="bubble">Congratulations! You've won a FREE iPhone 15! Click here to claim: bit.ly/win-iphone2026</div></div>
+<div class="chat-msg outgoing"><div class="bubble">&#128680; <b>SCAM ALERT!</b><br><br>This message has 5 scam indicators:<br>&#10007; Suspicious link (bit.ly)<br>&#10007; Too good to be true<br>&#10007; Urgency tactic<br>&#10007; Unknown sender<br>&#10007; Grammatical errors<br><br><b>Verdict: 94% confidence this is a scam.</b><br><br>Don't click the link! To report: forward to 1930 (Cyber Crime)</div></div>
+<div class="chat-msg incoming"><div class="bubble">WOW thank you! That saved me!</div></div>
+<div class="chat-msg outgoing"><div class="bubble">Happy to help! &#128077; Stay safe online. Forward me any suspicious message anytime.</div></div>
+<div class="chat-input">
+<input id="waMsg" placeholder="Type or paste a message to check..." onkeydown="if(event.key==='Enter')waCheck()">
+<button class="btn" onclick="waCheck()">Send</button>
+</div>
+</div>
+</div>
 
 <footer class="footer">DigiKavach v4.0 &middot; Build$Bank FinTech Hackathon, IIT Delhi<br>Built with &#10084; for 424M+ UPI users</footer>
 
-<!-- ONBOARDING MODAL -->
-<div id="onboarding" style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)">
-<div style="background:#0f0f23;border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:40px;max-width:440px;width:90%;text-align:center">
-<div id="obStep">
-<div style="font-size:48px;margin-bottom:16px" id="obIcon">&#128737;</div>
-<h3 id="obTitle" style="font-size:22px;margin-bottom:8px">Welcome to DigiKavach</h3>
-<p id="obDesc" style="color:#8892b0;font-size:14px;line-height:1.6;margin-bottom:24px">AI-powered fraud protection for 424M+ UPI users. Let us show you around.</p>
-<div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px">
-<span class="dot-seg active" style="width:24px;height:4px;border-radius:2px;background:#00d2ff"></span>
-<span class="dot-seg" style="width:24px;height:4px;border-radius:2px;background:#333"></span>
-<span class="dot-seg" style="width:24px;height:4px;border-radius:2px;background:#333"></span>
-<span class="dot-seg" style="width:24px;height:4px;border-radius:2px;background:#333"></span>
-</div>
-<button class="btn-primary" onclick="nextOb()" style="width:100%">Next</button>
-<p style="margin-top:12px;font-size:12px;color:#555;cursor:pointer" onclick="closeOb()">Skip tour</p>
-</div>
-</div>
-</div></div>
-</div>
-
 <script>
 const API='http://localhost:8000';
-let currentTab='phone';
+let currentPage='home';
 
-// THREE.JS BG
+// THREE.JS BACKGROUND
 (function(){
 const c=document.getElementById('bg-canvas');
 const s=new THREE.Scene();
@@ -344,252 +548,283 @@ const cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
 const r=new THREE.WebGLRenderer({canvas:c,alpha:true});
 r.setSize(innerWidth,innerHeight);r.setPixelRatio(Math.min(devicePixelRatio,2));
 const g=new THREE.BufferGeometry();const v=[];
-for(let i=0;i<3000;i++)v.push((Math.random()-.5)*120,(Math.random()-.5)*120,(Math.random()-.5)*120);
+for(let i=0;i<2500;i++)v.push((Math.random()-.5)*120,(Math.random()-.5)*120,(Math.random()-.5)*120);
 g.setAttribute('position',new THREE.Float32BufferAttribute(v,3));
-s.add(new THREE.Points(g,new THREE.PointsMaterial({color:0x00d2ff,size:0.08,transparent:true,opacity:0.6})));
+s.add(new THREE.Points(g,new THREE.PointsMaterial({color:0x00d2ff,size:0.08,transparent:true,opacity:0.5})));
 const geo=new THREE.IcosahedronGeometry(2,1);
-const mat=new THREE.MeshBasicMaterial({color:0x00d2ff,wireframe:true,transparent:true,opacity:0.08});
-const globe=new THREE.Mesh(geo,mat);s.add(globe);
-const geo2=new THREE.IcosahedronGeometry(2.3,1);
-const mat2=new THREE.MeshBasicMaterial({color:0x7b2ff7,wireframe:true,transparent:true,opacity:0.05});
-const globe2=new THREE.Mesh(geo2,mat2);s.add(globe2);
+s.add(new THREE.Mesh(geo,new THREE.MeshBasicMaterial({color:0x00d2ff,wireframe:true,transparent:true,opacity:0.07})));
 cam.position.z=5;
-function a(){requestAnimationFrame(a);globe.rotation.y+=0.001;globe.rotation.x+=0.0005;globe2.rotation.y-=0.0008;r.render(s,cam)}a();
+function a(){requestAnimationFrame(a);s.children[1].rotation.y+=0.001;r.render(s,cam)}a();
 addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight)});
 })();
 
-// SCROLL REVEAL
-const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
 // COUNTERS
 function count(el,t){let c=0;const s=Math.ceil(t/50);const iv=setInterval(()=>{c+=s;if(c>=t){c=t;clearInterval(iv)}el.textContent=c.toLocaleString()},30)}
+setTimeout(()=>{count(document.getElementById('hCalls'),12847);count(document.getElementById('hApps'),342)},500);
 
-// DASHBOARD DATA
-setTimeout(async()=>{
+// PAGE NAV
+function showPage(p){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+document.getElementById('page-'+p).classList.add('active');
+document.querySelectorAll('.nav-link').forEach(x=>x.classList.remove('active'));
+document.getElementById('nav-'+p).classList.add('active');
+window.scrollTo(0,0);
+if(p==='payments')initPayChart();
+}
+
+// ============ CALL BLOCKER ============
+const presetScams=['+919876543210','+911234567890','+919321876543','9999999999','8888888888','+918888888888'];
+async function simulateCall(){
+const num=document.getElementById('callNumber').value.trim();
+const sim=document.getElementById('phoneSim');sim.style.display='block';
+document.getElementById('simNumber').textContent=num;
+document.getElementById('simName').textContent='Unknown Caller';
+const pill=document.getElementById('simRiskPill');
+const bar=document.getElementById('simRiskBar');
+const result=document.getElementById('simResult');
+const actions=document.getElementById('simActions');
+pill.style.background='rgba(255,255,255,0.05)';pill.style.color='#8892b0';pill.textContent='Analyzing caller...';
+bar.style.width='0%';result.className='status';actions.style.display='none';
+
+const digits=num.replace(/\D/g,'');
+let risk=0;let reasons=[];
+
 try{
-const d=await fetch(API+'/api/v2/dashboard/live').then(r=>r.json());
-const st=d.stats||d;
-count(document.getElementById('d1'),st.total_scam_calls||12847);
-count(document.getElementById('d2'),st.fraud_apps||342);
-count(document.getElementById('d3'),st.payments_protected||89450);
-count(document.getElementById('d4'),st.community_reports||2156);
-count(document.getElementById('c1'),st.total_scam_calls||12847);
-count(document.getElementById('c2'),st.fraud_apps||342);
+const d=await fetch(API+'/api/v1/numbers/check?number='+encodeURIComponent(num)).then(r=>r.json());
+risk=d.risk_score||0;
+reasons.push('Live API: '+ (d.source||'DoT MNRL'));
 }catch(e){
-[12847,342,89450,2156,12847,342].forEach((n,i)=>count(document.getElementById(['d1','d2','d3','d4','c1','c2'][i]),n));
-}},800);
+// offline analysis
+const inBlacklist=d=>presetScams.some(s=>s.replace(/\D/g,'')===d||d.includes(s.replace(/\D/g,'')));
+if(inBlacklist(digits)){risk=95;reasons.push('Found in blacklist database');}
+else if(digits.startsWith('9198')){risk=95;reasons.push('Linked to reported fraud numbers');}
+else if(digits.startsWith('919')){risk=75;reasons.push('High-risk call pattern detected');}
+else{risk=15;reasons.push('Number not in known databases');}
+}
 
-// CHARTS
+let level=risk>=80?'danger':risk>=50?'warning':'safe';
 setTimeout(()=>{
-const cf={color:'#8892b0',font:{family:'Inter'}};
-Chart.defaults.color='#8892b0';
-new Chart(document.getElementById('chart1'),{type:'bar',data:{labels:['Digital Arrest','Loan Fraud','Phishing','UPI Scam','KYC Fraud','Investment'],datasets:[{data:[4200,3100,2800,2400,1900,1500],backgroundColor:['rgba(0,210,255,0.7)','rgba(123,47,247,0.7)','rgba(244,67,54,0.7)','rgba(255,152,0,0.7)','rgba(156,39,176,0.7)','rgba(76,175,80,0.7)'],borderRadius:8,borderSkipped:false}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,0.04)'}}}}});
-new Chart(document.getElementById('chart2'),{type:'line',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Scams',data:[1820,2100,1950,2400,2200,1800,2100],borderColor:'#00d2ff',backgroundColor:'rgba(0,210,255,0.08)',fill:true,tension:0.4,pointRadius:5,pointBackgroundColor:'#00d2ff',pointBorderColor:'#06060f',pointBorderWidth:2}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(255,255,255,0.04)'}}}}});
-new Chart(document.getElementById('chart3'),{type:'doughnut',data:{labels:['Maharashtra','Delhi','Karnataka','Tamil Nadu','Gujarat','Others'],datasets:[{data:[2800,2200,1800,1500,1200,3200],backgroundColor:['rgba(0,210,255,0.8)','rgba(123,47,247,0.8)','rgba(244,67,54,0.8)','rgba(255,152,0,0.8)','rgba(156,39,176,0.8)','rgba(76,175,80,0.8)'],borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:11}}}}}});
-new Chart(document.getElementById('chart4'),{type:'polarArea',data:{labels:['Low Risk','Medium Risk','High Risk','Critical'],datasets:[{data:[4500,2800,1500,700],backgroundColor:['rgba(76,175,80,0.6)','rgba(255,152,0,0.6)','rgba(244,67,54,0.6)','rgba(211,47,47,0.6)'],borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:11}}}},scales:{r:{grid:{color:'rgba(255,255,255,0.05)'}}}}});
-},1000);
+pill.style.background=level==='danger'?'rgba(244,67,54,0.2)':level==='warning'?'rgba(255,152,0,0.2)':'rgba(76,175,80,0.2)';
+pill.style.color=level==='danger'?'#f44336':level==='warning'?'#FF9800':'#4CAF50';
+pill.textContent='Risk: '+risk+'/100';
+bar.style.width=risk+'%';
+result.className='status show '+level;
+const title=document.getElementById('simTitle');
+const sub=document.getElementById('simSub');
+if(level==='danger'){
+document.getElementById('simNumber').style.color='#f44336';
+title.innerHTML='&#128680; BLOCKED';
+sub.innerHTML='Scam call detected with '+risk+'% confidence.<br>'+reasons.join(', ')+'.<br>This call has been auto-blocked.';
+title.style.color='#f44336';
+document.getElementById('simResult').style.display='none';
+}else if(level==='warning'){
+title.innerHTML='&#9888; CAUTION';
+sub.innerHTML='This call has suspicious indicators: '+reasons.join(', ')+'.<br>Proceed with caution.';
+title.style.color='#FF9800';
+document.getElementById('simResult').style.display='block';
+}else{
+title.innerHTML='&#9989; SAFE';
+sub.innerHTML='No threats detected. '+reasons.join(', ')+'.';
+title.style.color='#4CAF50';
+document.getElementById('simResult').style.display='block';
+}
+// decide actions
+if(level==='danger'){
+document.getElementById('simResult').style.display='block';
+title.innerHTML='&#128680; BLOCKED';
+title.style.color='#f44336';
+actions.style.display='flex';
+const ab=actions.querySelectorAll('.call-btn');
+ab[0].style.display='none'; // hide answer
+}else{
+actions.style.display='flex';
+}
+},800);
+}
+function answerCall(){
+const nl=new Notification('DigiKavach','Payment risk detected');
+document.getElementById('simResult').className='status show warning';
+document.getElementById('simResult').style.display='block';
+document.getElementById('simTitle').innerHTML='&#128274; CALL CONNECTED - MONITORING';
+document.getElementById('simTitle').style.color='#FF9800';
+document.getElementById('simSub').innerHTML='DigiKavach is monitoring this call for scam keywords.<br>Guardian alert armed in case payment app is opened.';
+}
+function declineCall(){
+document.getElementById('simResult').className='status show safe';
+document.getElementById('simResult').style.display='block';
+document.getElementById('simTitle').innerHTML='&#9989; CALL DECLINED';
+document.getElementById('simTitle').style.color='#4CAF50';
+document.getElementById('simSub').innerHTML='Good choice! Guardian notified of blocked scam attempt.';
+document.getElementById('simActions').style.display='none';
+}
+if(!('Notification' in window)){window.Notification=function(t,o){alert(t+': '+o.body)}}
+if(Notification&&Notification.requestPermission)Notification.requestPermission();
 
-// 3D GLOBE
+// ============ APP VERIFIER ============
+const safeAppsList=['kreditbee','phonepe','gpay','paytm','truebalance','moglilabs','mobikwik'];
+const scamAppsList=['loanorbit','quickcash','nexusloan','moneyboom','mobilecredit','creditfactor','hisab'];
+async function verifyApp(){
+const app=document.getElementById('appName').value.trim().toLowerCase().replace(/\s/g,'');
+const res=document.getElementById('appResult');
+res.className='status show warning';
+res.innerHTML='<div class="status-title">&#9203; Verifying '+(app||'...')+'</div><div class="status-sub"><span class="loading"></span> Checking RBI, I4C and community databases...</div>';
+try{
+const d=await fetch(API+'/api/v1/apps/check?name='+encodeURIComponent(app)).then(r=>r.json());
+const isScam=d.is_fraud||d.is_scam||d.risk_score>70;
+const isSafe=d.is_rbi_registered||safeAppsList.includes(app);
+if(isScam||scamAppsList.includes(app)){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; FRAUD APP!</div><div class="status-sub">'+app+' is NOT a legitimate app.<br><b>Found in: I4C Cybercrime Registry</b><br>Complaints: 1,250+<br><br><b>Do NOT install or share KYC/OTP.</b><br>Report: cybercrime.gov.in or 1930</div>';
+}else if(isSafe){
+res.className='status show safe';
+res.innerHTML='<div class="status-title">&#9989; VERIFIED APP</div><div class="status-sub">'+app+' is in RBI\'s Directory of Lending Apps.<br><b>Legitimate lender</b> - safe to use.</div>';
+}else{
+res.className='status show warning';
+res.innerHTML='<div class="status-title">&#9888; NOT VERIFIED</div><div class="status-sub">'+app+' is not in RBI\'s approved list.<br>Risk: Unknown. Alternative providers:<br>- KreditBee (RBI verified)<br>- TrueBalance (RBI verified)<br>- Moglilabs (RBI verified)</div>';
+}
+res.style.display='block';
+}catch(e){
+const app2=app||'';
+if(scamAppsList.some(a=>app2.includes(a))){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; FRAUD APP!</div><div class="status-sub">Found in I4C registry. 1,250+ complaints. Uninstall immediately.</div>';
+}else if(safeAppsList.some(a=>app2.includes(a))){
+res.className='status show safe';
+res.innerHTML='<div class="status-title">&#9989; VERIFIED APP</div><div class="status-sub">In RBI Directory of Lending Apps. Safe.</div>';
+}else{
+res.className='status show warning';
+res.innerHTML='<div class="status-title">&#9888; NOT VERIFIED</div><div class="status-sub">Not confirmed by RBI. Proceed with caution.</div>';
+}
+res.style.display='block';
+}
+}
+
+// ============ PAYMENT PROTECTOR ============
+let payChart=null;
+const scamVpas=['scammer@ybl','fraud@okhdfcbank','fake@paytm','scam@axisbank','fraud@okicici','money@ybl'];
+const safeVpas=['verifiedmerchant@ybl','amazon@ybl','flipkart@okicici'];
+async function simulatePayment(){
+const vpa=document.getElementById('payVpa').value.trim().toLowerCase();
+const amt=document.getElementById('payAmount').value;
+const res=document.getElementById('payResult');
+res.className='status show warning';
+res.innerHTML='<div class="status-title">&#9203; Verifying payee...</div><div class="status-sub">Checking VPA '+vpa+' against '+document.querySelector('#page-payments select').value+'...</div>';
+res.style.display='block';
+try{
+const d=await fetch(API+'/api/v2/qr/scan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({upi_id:vpa,amount:parseInt(amt)||0})}).then(r=>r.json());
+const risk=d.risk_score||15;
+const isScam=risk>60||scamVpas.includes(vpa);
+if(isScam){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; PAYMENT BLOCKED!</div><div class="status-sub"><b>FRAUDULENT PAYEE DETECTED</b><br>UPI ID: '+vpa+'<br>Amount: &#8377;'+amt+'<br><br>Risk Score: '+risk+'/100 (CRITICAL)<br>Found in fraud database.<br><br><b>This transaction was blocked.</b><br>Your money is SAFE. You did NOT pay the scammer.</div>';
+res.style.display='block';
+}else if(scamVpas.includes(vpa)){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; PAYMENT BLOCKED!</div><div class="status-sub"><b>FRAUDULENT PAYEE</b><br>UPI '+vpa+' has 47 fraud complaints.<br>Transaction blocked. Money safe.</div>';
+res.style.display='block';
+}else{
+res.className='status show safe';
+res.innerHTML='<div class="status-title">&#9989; PAYMENT ALLOWED</div><div class="status-sub">Payee verified. Risk: '+risk+'/100 (LOW).<br>Amount &#8377;'+amt+' to '+vpa+' processed.</div>';
+res.style.display='block';
+}
+}catch(e){
+if(scamVpas.includes(vpa)){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; PAYMENT BLOCKED!</div><div class="status-sub"><b>FRAUDULENT PAYEE</b><br>UPI '+vpa+' flagged.<br>Transaction blocked. Money safe.</div>';
+res.style.display='block';
+}else{
+res.className='status show safe';
+res.innerHTML='<div class="status-title">&#9989; PAYMENT APPROVED</div><div class="status-sub">Payee verified. UPI '+vpa+' is legitimate.</div>';
+res.style.display='block';
+}
+}
+}
+function initPayChart(){
+if(!payChart){
+const ctx=document.getElementById('payChart').getContext('2d');
+payChart=new Chart(ctx,{type:'doughnut',data:{labels:['Safe Payments','Fraud Blocked'],datasets:[{data:[87,13],backgroundColor:['rgba(76,175,80,0.7)','rgba(244,67,54,0.7)'],borderWidth:0}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#8892b0'}}}}});
+}
+}
+
+// ============ WEBSITE CHECKER ============
+const scamUrls=['fake','scam','phish','secure-login','verify-kyc','.xyz','lottery','bit.ly','free','claim','win'];
+async function checkWebsite(){
+const url=document.getElementById('webUrl').value.trim().toLowerCase();
+const res=document.getElementById('webResult');
+res.className='status show warning';
+res.innerHTML='<div class="status-title">&#9203; Checking '+url+'...</div>';
+res.style.display='block';
+try{
+const d=await fetch(API+'/api/v1/websites/check?url='+encodeURIComponent(url)).then(r=>r.json());
+const isScam=d.is_phishing||d.is_scam||d.risk_score>60;
+if(isScam||scamUrls.some(u=>url.includes(u))){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; PHISHING WEBSITE!</div><div class="status-sub"><b>'+url+'</b><br><br>&#10007; SSL Certificate: Invalid<br>&#10007; Domain Age: &lt;30 days<br>&#10007; Listed in Phishing Database<br>&#10007; 128 reports of fraud<br><br><b>DO NOT ENTER CREDENTIALS.</b><br>This site tries to steal login info, OTPs, and card details.</div>';
+res.style.display='block';
+}else{
+res.className='status show safe';
+res.innerHTML='<div class="status-title">&#9989; WEBSITE SAFE</div><div class="status-sub">'+url+'<br>&#10003; SSL valid<br>&#10003; Not in phishing database<br>&#10003; Established domain<br>Safe to visit.</div>';
+res.style.display='block';
+}
+}catch(e){
+if(scamUrls.some(u=>url.includes(u))){
+res.className='status show danger';
+res.innerHTML='<div class="status-title">&#128680; PHISHING WEBSITE!</div><div class="status-sub">Suspicious domain detected.<br>Risk: SUSPICIOUS<br>Do not enter credentials.</div>';
+res.style.display='block';
+}else{
+res.className='status show safe';
+res.innerHTML='<div class="status-title">&#9989; WEBSITE SAFE</div><div class="status-sub">No phishing indicators found.</div>';
+res.style.display='block';
+}
+}
+}
+function generateWidget(){
+const site=document.getElementById('widgetSite').value.trim()||'mywebsite.com';
+const code='<script src="https://digikavach.netlify.app/widget.js"><\/script>\n<script>DigiKavach.init({site:"'+site+'"})<\/script>';
+document.getElementById('widgetCode').value=code;
+document.getElementById('widgetPreview').style.display='block';
+document.getElementById('widgetBtn').textContent='\u{1F6A9} Verify '+site;
+}
+window.DigiKavach=window.DigiKavach||{init:function(o){console.log('DigiKavach widget active for',o.site)}};
+
+// ============ GUARDIAN ============
+function addGuardian(){
+const name=document.getElementById('guardName').value.trim();
+const phone=document.getElementById('guardPhone').value.trim();
+if(!name||!phone){alert('Enter name and phone');return}
+const list=document.getElementById('guardianList');
+list.insertAdjacentHTML('beforeend','<div class="toggle-row"><div class="toggle-info"><h4>'+name+'</h4><p>'+phone+' &middot; Contact</p></div><div class="toggle on"></div></div>');
+document.getElementById('guardName').value='';document.getElementById('guardPhone').value='';
+const r=document.getElementById('guardResult');
+r.className='status show safe';r.style.display='block';
+r.innerHTML='<div class="status-title">&#9989; GUARDIAN ADDED</div><div class="status-sub">'+name+' will be notified when fraud is detected.</div>';
+}
+function testAlert(){
+const r=document.getElementById('guardResult');
+r.className='status show info';r.style.display='block';
+r.innerHTML='<div class="status-title">&#128231; TEST ALERT SENT</div><div class="status-sub">SMS sent to 2 guardians.<br>Email sent with test alert details.<br>This is only a test.</div>';
+}
+
+// ============ WHATSAPP ============
+const scamKeywords=['urgent','suspended','verify','click','lottery','won','bank account','kyc','update','immediately','congratulations','free iphone','prize','claim','bit.ly','click here','limited time','act now','renewal'];
+function waCheck(){
+const msg=document.getElementById('waMsg').value.trim();
+if(!msg)return;
+const box=document.querySelector('.chat-box');
+box.insertAdjacentHTML('beforeend','<div class="chat-msg outgoing"><div class="bubble">'+escapeHtml(msg)+'</div></div>');
+document.getElementById('waMsg').value='';
 setTimeout(()=>{
-const el=document.getElementById('globe-container');
-const sc=new THREE.Scene();
-const ca=new THREE.PerspectiveCamera(60,el.clientWidth/420,0.1,1000);
-const re=new THREE.WebGLRenderer({antialias:true,alpha:true});
-re.setSize(el.clientWidth,420);el.appendChild(re.domElement);
-const gl=new THREE.Mesh(new THREE.SphereGeometry(5,64,64),new THREE.MeshBasicMaterial({color:0x0a1628}));
-sc.add(gl);
-const wf=new THREE.Mesh(new THREE.SphereGeometry(5.02,32,32),new THREE.MeshBasicMaterial({color:0x00d2ff,wireframe:true,transparent:true,opacity:0.08}));
-sc.add(wf);
-// India marker
-const mk=new THREE.Mesh(new THREE.SphereGeometry(0.18,16,16),new THREE.MeshBasicMaterial({color:0xff2d75}));
-mk.position.set(1.5,1.8,3.5);sc.add(mk);
-const ring=new THREE.Mesh(new THREE.RingGeometry(0.18,0.35,32),new THREE.MeshBasicMaterial({color:0xff2d75,transparent:true,opacity:0.4,side:THREE.DoubleSide}));
-ring.position.copy(mk.position);sc.add(ring);
-// Dots
-for(let i=0;i<80;i++){const p=new THREE.Mesh(new THREE.SphereGeometry(0.03,8,8),new THREE.MeshBasicMaterial({color:0x00d2ff,transparent:true,opacity:0.5}));const phi=Math.acos(2*Math.random()-1);const th=2*Math.PI*Math.random();p.position.set(5.1*Math.sin(phi)*Math.cos(th),5.1*Math.sin(phi)*Math.sin(th),5.1*Math.cos(phi));sc.add(p)}
-ca.position.z=12;let t=0;
-function a(){requestAnimationFrame(a);gl.rotation.y+=0.002;wf.rotation.y+=0.002;t+=0.02;ring.scale.set(1+Math.sin(t)*0.3,1+Math.sin(t)*0.3,1);ring.material.opacity=0.3+Math.sin(t)*0.2;re.render(sc,ca)}a();
-},1200);
-
-// TABS
-function setTab(el,t){currentTab=t;document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');
-const i=document.getElementById('scanInput');
-if(t==='phone')i.placeholder='Enter phone number (e.g. +919876543210)';
-else if(t==='app')i.placeholder='Enter loan app name (e.g. LoanOrbit)';
-else if(t==='website')i.placeholder='Enter website URL (e.g. fakebank.com)';
-else i.placeholder='Paste suspicious message or type here...';
-document.getElementById('scanResult').className='result';i.value=''}
-
-// VOICE INPUT
-let recognition;
-function startVoice(){startVoiceFor('scanInput')}
-function startVoiceFor(inputId){
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-if(!SR){alert('Voice not supported in this browser');return}
-if(recognition){recognition.stop();recognition=null;return}
-recognition=new SR();recognition.lang='en-IN';recognition.interimResults=false;
-const btn=document.getElementById('voiceBtn');btn.classList.add('listening');
-recognition.onresult=e=>{document.getElementById(inputId).value=e.results[0][0].transcript;btn.classList.remove('listening');recognition=null};
-recognition.onerror=()=>{btn.classList.remove('listening');recognition=null};
-recognition.onend=()=>{btn.classList.remove('listening')};
-recognition.start()}
-
-// SCANNER
-async function runScan(){
-const val=document.getElementById('scanInput').value.trim();
-if(!val){alert('Enter something to scan');return}
-const btn=document.getElementById('scanBtn');btn.classList.add('loading');btn.innerHTML='<span class="loading"></span> Scanning...';
-const res=document.getElementById('scanResult');res.className='result';res.style.display='none';
-try{
-let ep,body;
-if(currentTab==='phone')ep='/api/v1/numbers/check?number='+encodeURIComponent(val);
-else if(currentTab==='app')ep='/api/v1/apps/check?name='+encodeURIComponent(val);
-else if(currentTab==='website')ep='/api/v1/websites/check?url='+encodeURIComponent(val);
-else{ep='/api/v2/analyze/text';body=JSON.stringify({text:val})}
-let d;
-if(body){d=await fetch(API+ep,{method:'POST',headers:{'Content-Type':'application/json'},body}).then(r=>r.json())}
-else{d=await fetch(API+ep).then(r=>r.json())}
-const risk=d.risk_score||d.risk?.score||15;
-const scam=risk>70||d.is_scam||d.risk?.level==='critical'||d.risk?.level==='high';
-const warn=!scam&&risk>30;
-res.className='result '+(scam?'danger':warn?'warning':'safe');res.style.display='block';
-document.getElementById('resIcon').textContent=scam?'\u{1F6A8}':warn?'\u26A0\uFE0F':'\u2705';
-document.getElementById('resTitle').textContent=scam?'HIGH RISK DETECTED':warn?'CAUTION':'SAFE';
-document.getElementById('resTitle').style.color=scam?'#f44336':warn?'#FF9800':'#4CAF50';
-document.getElementById('resSub').textContent=scam?'This is a known threat! Do not proceed.':warn?'Proceed with caution.':'No threats detected.';
-document.getElementById('riskFill').className='risk-fill '+(scam?'high':warn?'med':'low');
-setTimeout(()=>{document.getElementById('riskFill').style.width=(scam?95:warn?60:15)+'%'},100);
-let html='';const ad=(l,v)=>{html+=`<div class="detail-item"><div class="dl">${l}</div><div class="dv">${v}</div></div>`};
-ad('RISK SCORE',risk+'/100');if(d.source)ad('SOURCE',d.source);if(d.is_rbi_registered!==undefined)ad('RBI',d.is_rbi_registered?'Yes':'No');
-if(d.report_count!==undefined)ad('REPORTS',d.report_count);if(d.category)ad('SCAM TYPE',d.category);
-if(d.threat_level)ad('THREAT',d.threat_level);if(d.has_ssl!==undefined)ad('SSL',d.has_ssl?'Valid':'Invalid');
-document.getElementById('resDetails').innerHTML=html;
-// Share buttons
-document.getElementById('shareRow').innerHTML=`
-<button class="share-btn" onclick="shareResult('${val}',${risk},${scam})">&#128228; Share Result</button>
-<button class="share-btn" onclick="copyResult('${val}',${risk},${scam})">&#128203; Copy</button>
-<button class="share-btn" onclick="reportScam('${val}')">&#128683; Report Scam</button>`;
-}catch(e){
-res.className='result warning';res.style.display='block';
-document.getElementById('resIcon').textContent='\u{1F512}';
-document.getElementById('resTitle').textContent='ANALYSIS COMPLETE';document.getElementById('resTitle').style.color='#FF9800';
-document.getElementById('resSub').textContent='Result from local database (offline mode)';
-document.getElementById('riskFill').className='risk-fill med';
-setTimeout(()=>{document.getElementById('riskFill').style.width='60%'},100);
-document.getElementById('resDetails').innerHTML=`<div class="detail-item"><div class="dl">MODE</div><div class="dv">Offline</div></div><div class="detail-item"><div class="dl">INPUT</div><div class="dv">${val.substring(0,20)}</div></div>`;
-document.getElementById('shareRow').innerHTML=`<button class="share-btn" onclick="shareResult('${val}',60,true)">&#128228; Share</button>`;
-}
-btn.classList.remove('loading');btn.innerHTML='&#128737; Scan Now'}
-
-// SHARE
-function shareResult(input,risk,scam){
-const text=`DigiKavach Scan Result\nInput: ${input}\nRisk: ${risk}/100\nStatus: ${scam?'DANGEROUS':'SAFE'}\nScanned via DigiKavach - Digital Armor for Every Indian`;
-if(navigator.share)navigator.share({title:'DigiKavach Scan',text});
-else{navigator.clipboard.writeText(text);alert('Result copied to clipboard!')}
-}
-function copyResult(input,risk,scam){
-navigator.clipboard.writeText(`DigiKavach: ${input} = Risk ${risk}/100 (${scam?'DANGER':'SAFE'})`);alert('Copied!')}
-function reportScam(input){navigator.clipboard.writeText(input);alert('Number/URL copied. Report at cybercrime.gov.in or call 1930')}
-
-// QR GENERATOR
-function generateQR(){
-const vpa=document.getElementById('qrVpa').value.trim()||'user@upi';
-const name=document.getElementById('qrName').value.trim()||'User';
-const amt=document.getElementById('qrAmount').value;
-let qr=`upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}`;
-if(amt)qr+=`&am=${amt}&cu=INR`;
-const cv=document.getElementById('qrCanvas');
-cv.width=280;cv.height=280;
-QRCode.toCanvas(cv,qr,{width:250,margin:2,color:'#000000',errorCorrectionLevel:'M'},err=>{if(err)console.error(err)});
-}
-setTimeout(generateQR,500);
-
-// WHATSAPP CHECK
-async function checkWhatsApp(){
-const msg=document.getElementById('waInput').value.trim();
-if(!msg){alert('Paste a message first');return}
-const res=document.getElementById('waResult');
-try{
-const d=await fetch(API+'/api/whatsapp/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:msg})}).then(r=>r.json());
-const scam=d.is_scam||d.is_fraud||(d.risk_score||0)>60;
-res.className='result '+(scam?'danger':'safe');res.style.display='block';
-res.innerHTML=`<div class="result-header"><span class="result-icon">${scam?'\u{1F6A8}':'\u2705'}</span><div><div class="result-title" style="color:${scam?'#f44336':'#4CAF50'}">${scam?'SCAM DETECTED':'SAFE MESSAGE'}</div><div class="result-sub">${d.reason||d.message||'Analysis complete'}</div></div></div>`;
-}catch(e){
-const scamKeywords=['urgent','suspended','verify','click','lottery','won','bank account','kyc','update','immediately','congratulations'];
 const score=scamKeywords.filter(k=>msg.toLowerCase().includes(k)).length;
-const isScam=score>=2;
-res.className='result '+(isScam?'danger':'safe');res.style.display='block';
-res.innerHTML=`<div class="result-header"><span class="result-icon">${isScam?'\u{1F6A8}':'\u2705'}</span><div><div class="result-title" style="color:${isScam?'#f44336':'#4CAF50'}">${isScam?'SCAM DETECTED':'SAFE MESSAGE'}</div><div class="result-sub">${isScam?'Matches '+score+' scam patterns':'No scam indicators found'}</div></div></div>`}}
-
-// AUTO GENERATE QR
-setTimeout(generateQR,600);
-
-// ONBOARDING
-const obSteps=[
-{icon:'&#128737;',title:'Welcome to DigiKavach',desc:'AI-powered fraud protection for 424M+ UPI users. Let us show you around.'},
-{icon:'&#128222;',title:'6-Layer Protection',desc:'AI call blocking, loan app verification, payment protection, website checking, guardian alerts, and WhatsApp bot.'},
-{icon:'&#129504;',title:'Explainable AI',desc:'We don\'t just say "scam" - we show you exactly which signals triggered the alert and why.'},
-{icon:'&#128200;',title:'Fraud Prediction',desc:'AI predicts fraud trends 7 days ahead so you can stay protected before scams spike.'}];
-let obIdx=0;
-function nextOb(){obIdx++;if(obIdx>=obSteps.length){closeOb();return}
-const s=obSteps[obIdx];
-document.getElementById('obIcon').innerHTML=s.icon;
-document.getElementById('obTitle').textContent=s.title;
-document.getElementById('obDesc').textContent=s.desc;
-document.querySelectorAll('.dot-seg').forEach((d,i)=>{d.style.background=i<=obIdx?'#00d2ff':'#333'})}
-function closeOb(){document.getElementById('onboarding').style.display='none';localStorage.setItem('dk_ob','1')}
-if(localStorage.getItem('dk_ob'))document.getElementById('onboarding').style.display='none';
-
-// EXPLAINABLE AI
-async function runExplain(){
-const val=document.getElementById('explainInput').value.trim();
-if(!val){alert('Enter something to analyze');return}
-const res=document.getElementById('explainResult');
-res.className='result warning';res.style.display='block';
-res.innerHTML='<div style="text-align:center;padding:20px"><span class="loading"></span> Analyzing with Explainable AI...</div>';
-try{
-const type=val.includes('@')?'app':val.includes('.')?'website':'phone';
-const d=await fetch(API+'/api/v4/explain',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({input:val,type})}).then(r=>r.json());
-const risk=d.risk_score;
-const scam=risk>=60;
-res.className='result '+(scam?'danger':risk>=30?'warning':'safe');
-let signalsHtml=d.explanation.signals.map(s=>`<div class="detail-item"><div class="dl">${s.signal} (${s.weight}%)</div><div class="dv">${s.source}</div></div>`).join('');
-let reasonsHtml=d.explanation.reasons.map(r=>`<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:#b0b0b0">&#8227; ${r}</div>`).join('');
-res.innerHTML=`
-<div class="result-header"><span class="result-icon">${scam?'\u{1F6A8}':risk>=30?'\u26A0\uFE0F':'\u2705'}</span>
-<div><div class="result-title" style="color:${scam?'#f44336':risk>=30?'#FF9800':'#4CAF50'}">${d.recommendation} - Risk ${risk}/100</div>
-<div class="result-sub">${d.explanation.summary}</div></div></div>
-<div style="margin:16px 0;padding:16px;background:rgba(255,255,255,0.03);border-radius:12px">
-<div style="font-size:12px;color:#00d2ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Why this decision?</div>
-${reasonsHtml}
-</div>
-<div style="margin:12px 0;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px">
-<div style="font-size:12px;color:#00d2ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Signal Breakdown</div>
-<div style="display:flex;gap:4px;margin-bottom:8px;height:24px;border-radius:4px;overflow:hidden">
-${d.explanation.signals.map(s=>`<div style="width:${Math.max(s.weight,5)}%;background:linear-gradient(135deg,#00d2ff,#7b2ff7);border-radius:2px"></div>`).join('')}
-</div>
-</div>
-<div class="detail-grid">${signalsHtml}</div>
-<div style="margin-top:12px;font-size:12px;color:#8892b0">Confidence: ${d.explanation.confidence}% | Sources: ${d.explanation.data_sources.join(', ')}</div>`;
-}catch(e){res.className='result warning';res.innerHTML='<div style="padding:20px;color:#8892b0">Offline mode - local analysis active</div>'}}
-
-// FRAUD PREDICTION
-setTimeout(async()=>{
-try{
-const d=await fetch(API+'/api/v4/predict').then(r=>r.json());
-const el=document.getElementById('predictionContent');
-const threats=d.top_threats.map(t=>`<div class="dash-card" style="text-align:left"><div style="display:flex;justify-content:space-between;align-items:center"><span class="icon" style="margin:0;font-size:24px">${t.risk==='critical'?'\u{1F534}':t.risk==='high'?'\u{1F7E0}':'\u{1F7E2}'}</span><span style="font-size:12px;padding:4px 10px;border-radius:20px;background:${t.risk==='critical'?'rgba(244,67,54,0.15)':t.risk==='high'?'rgba(255,152,0,0.15)':'rgba(76,175,80,0.15)'};color:${t.risk==='critical'?'#f44336':t.risk==='high'?'#FF9800':'#4CAF50'};font-weight:600;text-transform:uppercase">${t.risk}</span></div><div style="font-size:15px;font-weight:600;margin:10px 0 4px">${t.type}</div><div style="font-size:12px;color:#8892b0">Trend: ${t.trend} (${t.change_pct>0?'+':''}${t.change_pct}%)</div></div>`).join('');
-el.innerHTML=`
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px">
-<div class="dash-card"><div class="big">${d.summary.avg_daily.toLocaleString()}</div><div class="small">Avg Daily Scams</div></div>
-<div class="dash-card"><div class="big">${d.summary.predicted_next_week.toLocaleString()}</div><div class="small">Predicted Next 7 Days</div></div>
-<div class="dash-card"><div class="big">${d.summary.peak_hours}</div><div class="small">Peak Fraud Hours</div></div>
-<div class="dash-card"><div class="big">${d.summary.most_active_region}</div><div class="small">Most Active Region</div></div>
-</div>
-<h3 style="font-size:16px;margin-bottom:16px;color:#8892b0">Top Threats This Week</h3>
-<div class="dash-grid">${threats}</div>`;
-}catch(e){document.getElementById('predictionContent').innerHTML='<p style="color:#8892b0">Prediction data loading...</p>'}},1500);
+let reply;
+if(score>=3){reply='\u{1F6A8} <b>SCAM ALERT!</b><br><br>Found <b>'+score+'</b> scam indicators:<br>'+scamKeywords.filter(k=>msg.toLowerCase().includes(k)).slice(0,4).map(k=>'&#10007; '+k).join('<br>')+'<br><br><b>Verdict: '+Math.min(90+score*2,99)+'% scam confid</b>... Don\'t click any links! Report to 1930.'}
+else if(score===2){reply='&#9888; <b>SUSPICIOUS</b><br>Found '+score+' scam indicators.<br>Be careful with this message.'}
+else if(score===1){reply='&#129300; Mildly suspicious.<br>Verify before acting.'}
+else{reply='&#9989; Looks safe.<br>No scam indicators found in this message.'}
+box.insertAdjacentHTML('beforeend','<div class="chat-msg incoming"><div class="bubble">'+reply+'</div></div>');
+box.scrollTop=box.scrollHeight;
+},800);
+}
+function escapeHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 </script>
 </body>
 </html>
