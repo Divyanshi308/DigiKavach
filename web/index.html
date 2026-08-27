@@ -537,7 +537,12 @@ canvas#bg-canvas{position:fixed;top:0;left:0;z-index:0;pointer-events:none}
 <footer class="footer">DigiKavach v4.0 &middot; Build$Bank FinTech Hackathon, IIT Delhi<br>Built with &#10084; for 424M+ UPI users</footer>
 
 <script>
-const API='http://localhost:8000';
+// Auto-detect backend: use Render API when not on localhost, else localhost
+const RENDER_API='https://digikavach-api.onrender.com';
+const API=((location.hostname==='localhost'||location.hostname==='127.0.0.1'||location.protocol==='file:')?'http://localhost:8000':RENDER_API);
+// Auto-detect: use Render API if deployed, fall back to localhost
+const RENDER_API='https://digikavach-api.onrender.com';
+const USED_API=(location.hostname!=='localhost'&&location.hostname!=='127.0.0.1')?RENDER_API:API;
 let currentPage='home';
 
 // THREE.JS BACKGROUND
