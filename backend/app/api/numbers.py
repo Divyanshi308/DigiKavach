@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
+from app.services.smart_engine import analyze_number, REPORTED_SCAM
 
 router = APIRouter()
 
@@ -76,34 +77,18 @@ async def check_number(
             normalized = "+" + normalized
         elif len(normalized) == 10:
             normalized = "+91" + normalized
-    
-    # Check database
-    if normalized in SCAM_NUMBERS_DB:
-        data = SCAM_NUMBERS_DB[normalized]
-        return NumberCheckResponse(
-            number=normalized,
-            is_scam=data["is_scam"],
-            risk_score=data["risk_score"],
-            risk_level=data["risk_level"],
-            source=data["source"],
-            reports=data["reports"],
-            last_updated=datetime.now(),
-            details={
-                "type": data["type"],
-                "active": data["active"]
-            }
-        )
-    
-    # Number not in database - assume safe
+
+    # Use the smart detection engine for a real computed analysis
+    result = analyze_number(normalized)
     return NumberCheckResponse(
-        number=normalized,
-        is_scam=False,
-        risk_score=10,
-        risk_level="safe",
-        source="Not in database",
-        reports=0,
+        number=result["number"],
+        is_scam=result["is_scam"],
+        risk_score=result["risk_score"],
+        risk_level=result["risk_level"],
+        source=result["source"],
+        reports=result["reports"],
         last_updated=datetime.now(),
-        details=None
+        details=result["details"],
     )
 
 @router.post("/report")
@@ -133,12 +118,12 @@ async def get_scam_list(
     scam_numbers = [
         {
             "number": num,
-            "risk_score": data["risk_score"],
+            "risk_score": data["score"],
             "type": data["type"],
             "reports": data["reports"]
         }
-        for num, data in SCAM_NUMBERS_DB.items()
-        if data["is_scam"]
+        for num, data in REPORTED_SCAM.items()
+        if data["score"] >= 60
     ]
     
     return {
