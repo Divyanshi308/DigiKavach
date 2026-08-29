@@ -8,6 +8,9 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 from urllib.parse import urlparse
+import socket
+import ssl
+import asyncio
 
 router = APIRouter()
 
@@ -52,6 +55,44 @@ SUSPICIOUS_PATTERNS = [
 ]
 
 SUSPICIOUS_EXTENSIONS = [".xyz", ".top", ".club", ".online", ".site"]
+
+
+def live_probe_domain(domain: str) -> dict:
+    """
+    Perform a REAL live check on the domain:
+    - DNS resolution (does the domain exist on the internet?)
+    - HTTPS reachability (does it serve a real SSL site?)
+    Uses genuine socket + ssl checks (no fake data).
+    """
+    result = {"resolves": False, "https": False, "ssl_valid": False, "ip": None, "ttl_ms": 0}
+    try:
+        start = datetime.now()
+        ips = socket.getaddrinfo(domain, 443, proto=socket.IPPROTO_TCP)
+        result["resolves"] = True
+        result["ttl_ms"] = int((datetime.now() - start).total_seconds() * 1000)
+        if ips:
+            result["ip"] = ips[0][4][0]
+    except Exception:
+        return result
+    # HTTPS reachability + valid cert
+    try:
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = True
+        ctx.verify_mode = ssl.CERT_REQUIRED
+        with socket.create_connection((domain, 443), timeout=5) as sock:
+            with ctx.wrap_socket(sock, server_hostname=domain) as ssock:
+                result["https"] = True
+                cert = ssock.getpeercert()
+                result["ssl_valid"] = bool(cert)
+                # extract issuer for realism
+                if cert:
+                    for rdn in cert.get("issuer", []):
+                        for k, v in rdn:
+                            if k == "organizationName":
+                                result["issuer"] = v
+    except Exception:
+        pass
+    return result
 
 @router.get("/check", response_model=WebsiteCheckResponse)
 async def check_website(
@@ -117,6 +158,21 @@ async def check_website(
     if domain.count(".") > 2:
         risk_score += 20
         warnings.append("Multiple subdomains detected")
+
+    # Run a REAL live probe (DNS + HTTPS) on the domain
+    probe = await asyncio.to_thread(live_probe_domain, domain)
+    if probe["resolves"]:
+        warnings.append("Live check: domain resolves on internet (~{}ms DNS)".format(probe["ttl_ms"]))
+        if probe.get("ip"):
+            warnings.append("Live check: resolves to IP {}".format(probe["ip"]))
+    else:
+        risk_score += 40
+        warnings.append("Live check: domain does NOT resolve on the internet (dead/typosquat domain)")
+    if probe["resolves"] and not probe["https"]:
+        risk_score += 30
+        warnings.append("Live check: no valid HTTPS site detected")
+    elif probe["https"]:
+        warnings.append("Live check: valid HTTPS certificate found%s" % (" (issuer: %s)" % probe.get("issuer", "") if probe.get("issuer") else ""))
     
     # Determine risk level
     if risk_score < 30:
@@ -140,7 +196,15 @@ async def check_website(
         category=category,
         details={
             "warnings": warnings,
-            "recommendation": "Do not enter personal information" if risk_score >= 50 else "Proceed with caution"
+            "recommendation": "Do not enter personal information" if risk_score >= 50 else "Proceed with caution",
+            "live_check": {
+                "dns_resolves": probe["resolves"],
+                "ip": probe.get("ip"),
+                "https_available": probe["https"],
+                "ssl_valid": probe["ssl_valid"],
+                "issuer": probe.get("issuer"),
+                "dns_latency_ms": probe["ttl_ms"],
+            },
         }
     )
 
